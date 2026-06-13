@@ -1,0 +1,50 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uplead/main/json-schema/company.json",
+  "title": "UpLead Company",
+  "description": "Schema for a company record returned by the UpLead API.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Internal UpLead company ID." },
+    "company_name": { "type": "string" },
+    "domain": { "type": "string" },
+    "address": { "type": "string" },
+    "city": { "type": "string" },
+    "state": { "type": "string" },
+    "zip": { "type": "string" },
+    "county": { "type": "string" },
+    "country": { "type": "string" },
+    "phone_number": { "type": "string" },
+    "fax_number": { "type": "string" },
+    "employees": {
+      "type": "string",
+      "enum": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10000", "10001+"]
+    },
+    "revenue": {
+      "type": "string",
+      "enum": ["0-1m", "1m-10m", "10m-50m", "50m-100m", "100m-200m", "200m-1b", "1b+"]
+    },
+    "industry": { "type": "string" },
+    "sic_code": { "type": "integer" },
+    "sic_description": { "type": "string" },
+    "naics_code": { "type": "integer" },
+    "naics_description": { "type": "string" },
+    "description": { "type": "string" },
+    "year_founded": { "type": "integer" },
+    "logo": { "type": "string", "format": "uri" },
+    "linkedin_url": { "type": "string", "format": "uri" },
+    "twitter_url": { "type": "string", "format": "uri" },
+    "facebook_url": { "type": "string", "format": "uri" },
+    "youtube_url": { "type": "string", "format": "uri" },
+    "crunchbase_url": { "type": "string", "format": "uri" },
+    "yelp_url": { "type": "string", "format": "uri" },
+    "instagram_url": { "type": "string", "format": "uri" },
+    "type": {
+      "type": "string",
+      "enum": ["private", "public", "education", "government", "non-profit"]
+    },
+    "ticker": { "type": "string" },
+    "exchange": { "type": "string" },
+    "alexa_rank": { "type": "integer" }
+  }
+}

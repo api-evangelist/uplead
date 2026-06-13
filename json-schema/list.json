@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uplead/main/json-schema/list.json",
+  "title": "UpLead Contact List",
+  "description": "Schema for a contact list record in the UpLead API.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string" },
+    "name": { "type": "string" },
+    "contacts_count": { "type": "integer" }
+  },
+  "required": ["id", "name"]
+}

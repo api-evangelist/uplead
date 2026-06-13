@@ -1,0 +1,35 @@
+{
+  "results": [
+    {
+      "id": "p_def456",
+      "first_name": "Bob",
+      "last_name": "Johnson",
+      "title": "Director of Engineering",
+      "job_function": "engineering",
+      "job_sub_function": "Software Engineering",
+      "management_level": "D",
+      "gender": "Male",
+      "email": "bob.johnson@acme.com",
+      "email_status": "valid",
+      "phone_number": null,
+      "mobile_directdial": null,
+      "city": "San Francisco",
+      "state": "CA",
+      "county": "San Francisco",
+      "country": "US",
+      "linkedin_url": "https://www.linkedin.com/in/bobjohnson",
+      "industry": "Software",
+      "domain": "acme.com",
+      "company_name": "Acme Corporation"
+    }
+  ],
+  "meta": {
+    "total": 12,
+    "page": 1,
+    "next_page": 2,
+    "previous_page": null,
+    "first_page": true,
+    "last_page": false
+  },
+  "availableCredits": 4848
+}

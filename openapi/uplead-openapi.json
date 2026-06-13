@@ -1,0 +1,1139 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "UpLead API",
+    "description": "REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.",
+    "version": "2.0.0",
+    "contact": {
+      "name": "UpLead Support",
+      "url": "https://www.uplead.com/contact/"
+    },
+    "termsOfService": "https://www.uplead.com/terms/",
+    "license": {
+      "name": "Proprietary"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://api.uplead.com/v2",
+      "description": "UpLead API v2"
+    },
+    {
+      "url": "https://logo.uplead.com",
+      "description": "UpLead Logo CDN"
+    }
+  ],
+  "security": [
+    {
+      "ApiKeyAuth": []
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "Authorization",
+        "description": "Your UpLead API key passed as a header value."
+      }
+    },
+    "schemas": {
+      "CompanyRecord": {
+        "type": "object",
+        "description": "Company data record from UpLead's database.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Internal UpLead company ID."
+          },
+          "company_name": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "zip": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "fax_number": {
+            "type": "string"
+          },
+          "employees": {
+            "type": "string",
+            "enum": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10000", "10001+"]
+          },
+          "revenue": {
+            "type": "string",
+            "enum": ["0-1m", "1m-10m", "10m-50m", "50m-100m", "100m-200m", "200m-1b", "1b+"]
+          },
+          "industry": {
+            "type": "string"
+          },
+          "sic_code": {
+            "type": "integer"
+          },
+          "sic_description": {
+            "type": "string"
+          },
+          "naics_code": {
+            "type": "integer"
+          },
+          "naics_description": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "year_founded": {
+            "type": "integer"
+          },
+          "logo": {
+            "type": "string",
+            "format": "uri"
+          },
+          "linkedin_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "twitter_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "facebook_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "youtube_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "crunchbase_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "yelp_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "instagram_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "type": {
+            "type": "string",
+            "enum": ["private", "public", "education", "government", "non-profit"]
+          },
+          "ticker": {
+            "type": "string"
+          },
+          "exchange": {
+            "type": "string"
+          },
+          "alexa_rank": {
+            "type": "integer"
+          }
+        }
+      },
+      "PersonRecord": {
+        "type": "object",
+        "description": "Person/contact data record from UpLead's database.",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Internal UpLead person ID."
+          },
+          "first_name": {
+            "type": "string"
+          },
+          "last_name": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "job_function": {
+            "type": "string",
+            "enum": [
+              "advisory", "analyst", "creative", "education", "engineering",
+              "finance", "fulfillment", "health", "hospitality", "human resources",
+              "legal", "manufacturing", "marketing", "operations", "partnerships",
+              "product", "professional service", "public service", "research",
+              "sales", "sales engineering", "support", "trade", "unemployed"
+            ]
+          },
+          "job_sub_function": {
+            "type": "string"
+          },
+          "management_level": {
+            "type": "string",
+            "enum": ["M", "D", "VP", "C"],
+            "description": "M=Manager, D=Director, VP=Vice President, C=C-Suite"
+          },
+          "gender": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string",
+            "format": "email"
+          },
+          "email_status": {
+            "type": "string",
+            "enum": ["valid", "invalid", "accept_all", "unknown"]
+          },
+          "phone_number": {
+            "type": "string"
+          },
+          "mobile_directdial": {
+            "type": "string"
+          },
+          "city": {
+            "type": "string"
+          },
+          "state": {
+            "type": "string"
+          },
+          "county": {
+            "type": "string"
+          },
+          "country": {
+            "type": "string"
+          },
+          "linkedin_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "industry": {
+            "type": "string"
+          },
+          "domain": {
+            "type": "string"
+          },
+          "company_name": {
+            "type": "string"
+          }
+        }
+      },
+      "CombinedPersonRecord": {
+        "allOf": [
+          { "$ref": "#/components/schemas/PersonRecord" },
+          {
+            "type": "object",
+            "properties": {
+              "company": {
+                "$ref": "#/components/schemas/CompanyRecord"
+              }
+            }
+          }
+        ]
+      },
+      "PaginationMeta": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "next_page": {
+            "type": "integer",
+            "nullable": true
+          },
+          "previous_page": {
+            "type": "integer",
+            "nullable": true
+          },
+          "first_page": {
+            "type": "boolean"
+          },
+          "last_page": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ListRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "contacts_count": {
+            "type": "integer"
+          }
+        }
+      },
+      "IndustryRecord": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "industry_name": {
+            "type": "string"
+          }
+        }
+      },
+      "ErrorResponse": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "description": "Human-readable error message."
+          },
+          "status": {
+            "type": "integer",
+            "description": "HTTP status code."
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/company-search": {
+      "get": {
+        "operationId": "companySearchGet",
+        "summary": "Search for a company by domain, name, or ID",
+        "description": "Returns enriched company data from UpLead's B2B database. One of id, domain, or company is required.",
+        "tags": ["Company"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "description": "Internal UpLead company ID.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "domain",
+            "in": "query",
+            "description": "Company domain name.",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "company",
+            "in": "query",
+            "description": "Company name.",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful company lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/CompanyRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request - missing or invalid parameters.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized - invalid API key.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden - account paused.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "operationId": "companySearchPost",
+        "summary": "Search for a company (POST)",
+        "description": "Returns enriched company data from UpLead's B2B database via POST body. One of id, domain, or company is required.",
+        "tags": ["Company"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "domain": { "type": "string" },
+                  "company": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful company lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/CompanyRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/person-search": {
+      "get": {
+        "operationId": "personSearchGet",
+        "summary": "Search for a person by email, name+domain, or ID",
+        "description": "Returns enriched person/contact data. Provide email, or first_name+last_name+domain, or id.",
+        "tags": ["Person"],
+        "parameters": [
+          { "name": "id", "in": "query", "schema": { "type": "string" } },
+          { "name": "email", "in": "query", "schema": { "type": "string", "format": "email" } },
+          { "name": "first_name", "in": "query", "schema": { "type": "string" } },
+          { "name": "last_name", "in": "query", "schema": { "type": "string" } },
+          { "name": "domain", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful person lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/PersonRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "operationId": "personSearchPost",
+        "summary": "Search for a person (POST)",
+        "tags": ["Person"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "id": { "type": "string" },
+                  "email": { "type": "string", "format": "email" },
+                  "first_name": { "type": "string" },
+                  "last_name": { "type": "string" },
+                  "domain": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful person lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/PersonRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/combined-search": {
+      "get": {
+        "operationId": "combinedSearchGet",
+        "summary": "Combined person and company lookup by email",
+        "description": "Returns person data plus nested company data in a single call. Requires email.",
+        "tags": ["Combined"],
+        "parameters": [
+          { "name": "email", "in": "query", "required": true, "schema": { "type": "string", "format": "email" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful combined lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/CombinedPersonRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "operationId": "combinedSearchPost",
+        "summary": "Combined person and company lookup (POST)",
+        "tags": ["Combined"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["email"],
+                "properties": {
+                  "email": { "type": "string", "format": "email" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful combined lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "$ref": "#/components/schemas/CombinedPersonRecord" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/prospector-search": {
+      "post": {
+        "operationId": "prospectorSearch",
+        "summary": "Search contacts within a company domain",
+        "description": "Paginated search to find contacts at a company by domain, with filters for job function, management level, title, and location.",
+        "tags": ["Prospector"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["domain"],
+                "properties": {
+                  "domain": { "type": "string" },
+                  "job_function": {
+                    "type": "string",
+                    "enum": ["advisory","analyst","creative","education","engineering","finance","fulfillment","health","hospitality","human resources","legal","manufacturing","marketing","operations","partnerships","product","professional service","public service","research","sales","sales engineering","support","trade","unemployed"]
+                  },
+                  "job_sub_function": { "type": "string" },
+                  "management_level": { "type": "string", "enum": ["M","D","VP","C","CX"] },
+                  "title": { "type": "string" },
+                  "titles": { "type": "array", "items": { "type": "string" } },
+                  "title_search_mode": { "type": "string", "enum": ["include","exact"] },
+                  "city": { "type": "string" },
+                  "cities": { "type": "array", "items": { "type": "string" } },
+                  "state": { "type": "string" },
+                  "states": { "type": "array", "items": { "type": "string" } },
+                  "country": { "type": "string" },
+                  "countries": { "type": "array", "items": { "type": "string" } },
+                  "regions": { "type": "array", "items": { "type": "string", "enum": ["AMER","EMEA"] } },
+                  "name": { "type": "string" },
+                  "exclusion_list_names": { "type": "array", "items": { "type": "string" } },
+                  "email_status": { "type": "string", "enum": ["valid","invalid","accept_all","unknown"] },
+                  "count_only": { "type": "boolean" },
+                  "page": { "type": "integer", "default": 1 },
+                  "per_page": { "type": "integer", "default": 25, "maximum": 100 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful prospector search results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/PersonRecord" }
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/prospector-pro-search": {
+      "post": {
+        "operationId": "prospectorProSearch",
+        "summary": "Advanced prospector search with company filters (Professional+ plans)",
+        "description": "Expanded prospector search supporting multiple domains, industry, revenue, employee size, and business type filters. Returns person records with nested company data.",
+        "tags": ["Prospector"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "domain": { "type": "string" },
+                  "domains": { "type": "array", "items": { "type": "string" } },
+                  "name": { "type": "string" },
+                  "job_function": {
+                    "type": "string",
+                    "enum": ["advisory","analyst","creative","education","engineering","finance","fulfillment","health","hospitality","human resources","legal","manufacturing","marketing","operations","partnerships","product","professional service","public service","research","sales","sales engineering","support","trade","unemployed"]
+                  },
+                  "job_sub_function": { "type": "string" },
+                  "management_level": { "type": "string", "enum": ["M","D","VP","C","CX"] },
+                  "titles": { "type": "array", "items": { "type": "string" } },
+                  "title_search_mode": { "type": "string", "enum": ["include","exact"] },
+                  "cities": { "type": "array", "items": { "type": "string" } },
+                  "states": { "type": "array", "items": { "type": "string" } },
+                  "countries": { "type": "array", "items": { "type": "string" } },
+                  "regions": { "type": "array", "items": { "type": "string", "enum": ["AMER","APAC","EMEA","LATAM"] } },
+                  "location_target": { "type": "string", "enum": ["contact","company"] },
+                  "business_types": { "type": "array", "items": { "type": "string", "enum": ["education","government","non_profit","public","private","subsidiary"] } },
+                  "industries": { "type": "array", "items": { "type": "string" } },
+                  "industries_ids": { "type": "array", "items": { "type": "string" } },
+                  "sic_codes": { "type": "array", "items": { "type": "string" } },
+                  "naics_codes": { "type": "array", "items": { "type": "string" } },
+                  "employees": { "type": "array", "items": { "type": "string", "enum": ["1-10","11-50","51-200","201-500","501-1000","1001-5000","5001-10000","10001+"] } },
+                  "revenues": { "type": "array", "items": { "type": "string", "enum": ["0-1m","1m-10m","10m-50m","50m-100m","100m-200m","200m-1b","1b+"] } },
+                  "exclude_eu": { "type": "boolean" },
+                  "exclusion_list_names": { "type": "array", "items": { "type": "string" } },
+                  "count_only": { "type": "boolean" },
+                  "page": { "type": "integer", "default": 1 },
+                  "per_page": { "type": "integer", "default": 25, "maximum": 100 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful prospector pro search results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/CombinedPersonRecord" }
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/quick-search": {
+      "post": {
+        "operationId": "quickSearch",
+        "summary": "Quick search for contacts or companies (Professional+ plans)",
+        "description": "Mixed-type search returning either contact or company results depending on the type parameter.",
+        "tags": ["Search"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["type"],
+                "properties": {
+                  "type": { "type": "string", "enum": ["contact","company"] },
+                  "text": { "type": "string" },
+                  "domain": { "type": "string" },
+                  "domains": { "type": "array", "items": { "type": "string" } },
+                  "name": { "type": "string" },
+                  "job_function": { "type": "array", "items": { "type": "string" } },
+                  "job_sub_function": { "type": "array", "items": { "type": "string" } },
+                  "management_level": { "type": "array", "items": { "type": "string" } },
+                  "titles": { "type": "array", "items": { "type": "string" } },
+                  "title_search_mode": { "type": "string", "enum": ["include","exact"] },
+                  "cities": { "type": "array", "items": { "type": "string" } },
+                  "states": { "type": "array", "items": { "type": "string" } },
+                  "countries": { "type": "array", "items": { "type": "string" } },
+                  "regions": { "type": "array", "items": { "type": "string" } },
+                  "location_target": { "type": "string", "enum": ["contact","company"] },
+                  "business_types": { "type": "array", "items": { "type": "string" } },
+                  "industries": { "type": "array", "items": { "type": "string" } },
+                  "sic_codes": { "type": "array", "items": { "type": "string" } },
+                  "naics_codes": { "type": "array", "items": { "type": "string" } },
+                  "employees": { "type": "array", "items": { "type": "string" } },
+                  "revenues": { "type": "array", "items": { "type": "string" } },
+                  "exclude_eu": { "type": "boolean" },
+                  "exclusion_list_names": { "type": "array", "items": { "type": "string" } },
+                  "count_only": { "type": "boolean" },
+                  "page": { "type": "integer", "default": 1 },
+                  "per_page": { "type": "integer", "default": 25, "maximum": 100 }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful quick search results.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "type": { "type": "string", "enum": ["contact","company"] },
+                    "results": {
+                      "type": "array",
+                      "items": {}
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/credits": {
+      "get": {
+        "operationId": "getCredits",
+        "summary": "Get remaining credit balance",
+        "description": "Returns the current API credit balance for the authenticated account.",
+        "tags": ["Account"],
+        "responses": {
+          "200": {
+            "description": "Successful credit balance response.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": { "type": "string", "format": "email" },
+                    "credits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/company-name-to-domain": {
+      "get": {
+        "operationId": "companyNameToDomainGet",
+        "summary": "Convert a company name to its domain",
+        "description": "Looks up the primary web domain for a given company name.",
+        "tags": ["Company"],
+        "parameters": [
+          { "name": "company_name", "in": "query", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful domain lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "company_name": { "type": "string" },
+                    "domain": { "type": "string" },
+                    "logo": { "type": "string", "format": "uri" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "operationId": "companyNameToDomainPost",
+        "summary": "Convert a company name to its domain (POST)",
+        "tags": ["Company"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["company_name"],
+                "properties": {
+                  "company_name": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Successful domain lookup.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "company_name": { "type": "string" },
+                    "domain": { "type": "string" },
+                    "logo": { "type": "string", "format": "uri" },
+                    "availableCredits": { "type": "integer" }
+                  }
+                }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "403": { "description": "Forbidden.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "429": { "description": "Rate limit exceeded.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/industries": {
+      "get": {
+        "operationId": "searchIndustriesGet",
+        "summary": "Search the industry database",
+        "description": "Returns industry records matching an optional text query, for use as filter values in prospector searches.",
+        "tags": ["Reference"],
+        "parameters": [
+          { "name": "text", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful industry search.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/IndustryRecord" }
+                    },
+                    "total": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/lists": {
+      "get": {
+        "operationId": "getLists",
+        "summary": "Get paginated contact lists",
+        "description": "Returns all contact lists for the authenticated account with optional text filter.",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "text", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "per_page", "in": "query", "schema": { "type": "string", "default": "15" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated list of contact lists.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": { "type": "array", "items": { "$ref": "#/components/schemas/ListRecord" } },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "post": {
+        "operationId": "createList",
+        "summary": "Create a new contact list",
+        "tags": ["Lists"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["name"],
+                "properties": {
+                  "name": { "type": "string" }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Created list record.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListRecord" }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/lists/{list_id}": {
+      "get": {
+        "operationId": "getList",
+        "summary": "Retrieve a single contact list",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "list_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Single list record.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListRecord" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "List not found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      },
+      "delete": {
+        "operationId": "deleteList",
+        "summary": "Delete a contact list",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "list_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "List deleted successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": { "type": "object", "nullable": true }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "List not found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts": {
+      "get": {
+        "operationId": "getListContacts",
+        "summary": "Retrieve contacts in a list",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "list_id", "in": "path", "required": true, "schema": { "type": "string" } },
+          { "name": "text", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer", "default": 1 } },
+          { "name": "per_page", "in": "query", "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": {
+            "description": "Paginated contact results for the list.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "results": {
+                      "type": "array",
+                      "items": { "$ref": "#/components/schemas/PersonRecord" }
+                    },
+                    "meta": { "$ref": "#/components/schemas/PaginationMeta" }
+                  }
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "List not found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts/add": {
+      "post": {
+        "operationId": "addContactsToList",
+        "summary": "Add contacts to a list",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "list_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["contact_ids"],
+                "properties": {
+                  "contact_ids": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated list record.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListRecord" }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "List not found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/lists/{list_id}/contacts/delete": {
+      "delete": {
+        "operationId": "deleteContactsFromList",
+        "summary": "Delete contacts from a list",
+        "tags": ["Lists"],
+        "parameters": [
+          { "name": "list_id", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": ["contact_ids"],
+                "properties": {
+                  "contact_ids": { "type": "array", "items": { "type": "string" } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Updated list record after contact removal.",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/ListRecord" }
+              }
+            }
+          },
+          "400": { "description": "Bad request.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "401": { "description": "Unauthorized.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } },
+          "404": { "description": "List not found.", "content": { "application/json": { "schema": { "$ref": "#/components/schemas/ErrorResponse" } } } }
+        }
+      }
+    },
+    "/{domain}": {
+      "get": {
+        "operationId": "getCompanyLogo",
+        "summary": "Retrieve company logo by domain",
+        "description": "Returns the company logo image for the given domain. Uses the logo.uplead.com server.",
+        "tags": ["Company"],
+        "servers": [
+          { "url": "https://logo.uplead.com", "description": "UpLead Logo CDN" }
+        ],
+        "parameters": [
+          { "name": "domain", "in": "path", "required": true, "schema": { "type": "string" }, "example": "apple.com" }
+        ],
+        "responses": {
+          "200": {
+            "description": "Company logo image.",
+            "content": {
+              "image/png": { "schema": { "type": "string", "format": "binary" } },
+              "image/jpeg": { "schema": { "type": "string", "format": "binary" } }
+            }
+          },
+          "404": { "description": "Logo not found." }
+        }
+      }
+    }
+  },
+  "tags": [
+    { "name": "Company", "description": "Company search and enrichment operations." },
+    { "name": "Person", "description": "Person/contact search and enrichment operations." },
+    { "name": "Combined", "description": "Combined person and company lookup." },
+    { "name": "Prospector", "description": "Prospector search operations for discovering contacts." },
+    { "name": "Search", "description": "General search operations." },
+    { "name": "Account", "description": "Account and credit management." },
+    { "name": "Lists", "description": "Contact list management operations." },
+    { "name": "Reference", "description": "Reference data lookups." }
+  ]
+}

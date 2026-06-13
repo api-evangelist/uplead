@@ -1,0 +1,117 @@
+{
+  "vocabulary": "UpLead API Vocabulary",
+  "description": "Domain terms and concepts used across the UpLead B2B data API.",
+  "version": "1.0.0",
+  "source": "https://docs.uplead.com/",
+  "terms": [
+    {
+      "term": "credit",
+      "definition": "The unit of consumption for UpLead API calls. Credits are only charged when verified data is returned.",
+      "context": "billing"
+    },
+    {
+      "term": "domain",
+      "definition": "The primary web domain associated with a company (e.g., acme.com). Used as a key identifier for company lookups and prospector searches.",
+      "context": "company"
+    },
+    {
+      "term": "email_status",
+      "definition": "The verification status of an email address.",
+      "values": ["valid", "invalid", "accept_all", "unknown"],
+      "context": "contact"
+    },
+    {
+      "term": "management_level",
+      "definition": "Seniority classification for a contact.",
+      "values": {
+        "M": "Manager",
+        "D": "Director",
+        "VP": "Vice President",
+        "C": "C-Suite",
+        "CX": "Extended C-Suite"
+      },
+      "context": "contact"
+    },
+    {
+      "term": "job_function",
+      "definition": "The broad functional area of a contact's role.",
+      "values": [
+        "advisory", "analyst", "creative", "education", "engineering",
+        "finance", "fulfillment", "health", "hospitality", "human resources",
+        "legal", "manufacturing", "marketing", "operations", "partnerships",
+        "product", "professional service", "public service", "research",
+        "sales", "sales engineering", "support", "trade", "unemployed"
+      ],
+      "context": "contact"
+    },
+    {
+      "term": "employees",
+      "definition": "Employee count range for a company.",
+      "values": ["1-10", "11-50", "51-200", "201-500", "501-1000", "1001-5000", "5001-10000", "10001+"],
+      "context": "company"
+    },
+    {
+      "term": "revenue",
+      "definition": "Annual revenue range for a company.",
+      "values": ["0-1m", "1m-10m", "10m-50m", "50m-100m", "100m-200m", "200m-1b", "1b+"],
+      "context": "company"
+    },
+    {
+      "term": "business_type",
+      "definition": "Legal or organizational classification of a company.",
+      "values": ["private", "public", "education", "government", "non-profit", "subsidiary"],
+      "context": "company"
+    },
+    {
+      "term": "prospector",
+      "definition": "An UpLead search mode that discovers contacts within a target company by applying filters like job function, management level, and location.",
+      "context": "search"
+    },
+    {
+      "term": "title_search_mode",
+      "definition": "Controls how job title filters are applied in prospector searches.",
+      "values": {
+        "include": "Match titles that include any of the provided keywords.",
+        "exact": "Match titles that exactly match the provided values."
+      },
+      "context": "search"
+    },
+    {
+      "term": "region",
+      "definition": "Geographic region grouping for filtering contacts or companies.",
+      "values": ["AMER", "APAC", "EMEA", "LATAM"],
+      "context": "geography"
+    },
+    {
+      "term": "location_target",
+      "definition": "Specifies whether location filters apply to the contact's location or the company's headquarters.",
+      "values": ["contact", "company"],
+      "context": "search"
+    },
+    {
+      "term": "exclusion_list",
+      "definition": "A named contact list used to exclude previously contacted or suppressed leads from prospector results.",
+      "context": "lists"
+    },
+    {
+      "term": "sic_code",
+      "definition": "Standard Industrial Classification code — a 4-digit code assigned by the US government to classify industries.",
+      "context": "company"
+    },
+    {
+      "term": "naics_code",
+      "definition": "North American Industry Classification System code — the standard classification of business establishments used in the US, Canada, and Mexico.",
+      "context": "company"
+    },
+    {
+      "term": "availableCredits",
+      "definition": "The number of API credits remaining on the account at the time of the API response.",
+      "context": "billing"
+    },
+    {
+      "term": "combined-search",
+      "definition": "A single API call that returns both person data and the associated company data in one response, reducing the number of API calls needed for enrichment workflows.",
+      "context": "search"
+    }
+  ]
+}

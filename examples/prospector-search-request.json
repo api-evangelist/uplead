@@ -1,0 +1,9 @@
+{
+  "domain": "acme.com",
+  "job_function": "engineering",
+  "management_level": "D",
+  "countries": ["US", "CA"],
+  "email_status": "valid",
+  "page": 1,
+  "per_page": 25
+}

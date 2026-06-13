@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/uplead/main/json-schema/person.json",
+  "title": "UpLead Person",
+  "description": "Schema for a person/contact record returned by the UpLead API.",
+  "type": "object",
+  "properties": {
+    "id": { "type": "string", "description": "Internal UpLead person ID." },
+    "first_name": { "type": "string" },
+    "last_name": { "type": "string" },
+    "title": { "type": "string" },
+    "job_function": {
+      "type": "string",
+      "enum": [
+        "advisory", "analyst", "creative", "education", "engineering",
+        "finance", "fulfillment", "health", "hospitality", "human resources",
+        "legal", "manufacturing", "marketing", "operations", "partnerships",
+        "product", "professional service", "public service", "research",
+        "sales", "sales engineering", "support", "trade", "unemployed"
+      ]
+    },
+    "job_sub_function": { "type": "string" },
+    "management_level": {
+      "type": "string",
+      "enum": ["M", "D", "VP", "C"],
+      "description": "M=Manager, D=Director, VP=Vice President, C=C-Suite"
+    },
+    "gender": { "type": "string" },
+    "email": { "type": "string", "format": "email" },
+    "email_status": {
+      "type": "string",
+      "enum": ["valid", "invalid", "accept_all", "unknown"]
+    },
+    "phone_number": { "type": "string" },
+    "mobile_directdial": { "type": "string" },
+    "city": { "type": "string" },
+    "state": { "type": "string" },
+    "county": { "type": "string" },
+    "country": { "type": "string" },
+    "linkedin_url": { "type": "string", "format": "uri" },
+    "industry": { "type": "string" },
+    "domain": { "type": "string" },
+    "company_name": { "type": "string" }
+  }
+}

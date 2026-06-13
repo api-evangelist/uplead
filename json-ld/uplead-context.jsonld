@@ -1,0 +1,99 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "schema": "https://schema.org/",
+    "uplead": "https://api.uplead.com/v2/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Company": "schema:Organization",
+    "Person": "schema:Person",
+    "ContactList": "schema:ItemList",
+
+    "id": "@id",
+    "company_name": "schema:name",
+    "domain": "schema:url",
+    "address": "schema:streetAddress",
+    "city": "schema:addressLocality",
+    "state": "schema:addressRegion",
+    "zip": "schema:postalCode",
+    "country": "schema:addressCountry",
+    "phone_number": "schema:telephone",
+    "fax_number": "schema:faxNumber",
+    "employees": "schema:numberOfEmployees",
+    "description": "schema:description",
+    "year_founded": "schema:foundingDate",
+    "logo": "schema:logo",
+    "linkedin_url": "schema:sameAs",
+    "twitter_url": "schema:sameAs",
+    "facebook_url": "schema:sameAs",
+    "youtube_url": "schema:sameAs",
+    "industry": "schema:industry",
+    "ticker": "schema:tickerSymbol",
+
+    "first_name": "schema:givenName",
+    "last_name": "schema:familyName",
+    "title": "schema:jobTitle",
+    "email": "schema:email",
+    "gender": "schema:gender",
+
+    "availableCredits": {
+      "@id": "uplead:availableCredits",
+      "@type": "xsd:integer"
+    },
+    "email_status": {
+      "@id": "uplead:emailStatus"
+    },
+    "management_level": {
+      "@id": "uplead:managementLevel"
+    },
+    "job_function": {
+      "@id": "uplead:jobFunction"
+    },
+    "job_sub_function": {
+      "@id": "uplead:jobSubFunction"
+    },
+    "mobile_directdial": {
+      "@id": "uplead:mobileDirectDial"
+    },
+    "sic_code": {
+      "@id": "uplead:sicCode",
+      "@type": "xsd:integer"
+    },
+    "sic_description": {
+      "@id": "uplead:sicDescription"
+    },
+    "naics_code": {
+      "@id": "uplead:naicsCode",
+      "@type": "xsd:integer"
+    },
+    "naics_description": {
+      "@id": "uplead:naicsDescription"
+    },
+    "alexa_rank": {
+      "@id": "uplead:alexaRank",
+      "@type": "xsd:integer"
+    },
+    "revenue": {
+      "@id": "uplead:revenueRange"
+    },
+    "business_type": {
+      "@id": "uplead:businessType"
+    },
+    "crunchbase_url": "schema:sameAs",
+    "yelp_url": "schema:sameAs",
+    "instagram_url": "schema:sameAs",
+
+    "results": "schema:itemListElement",
+    "meta": "uplead:paginationMeta",
+    "total": "schema:numberOfItems",
+    "page": "uplead:currentPage",
+    "next_page": "uplead:nextPage",
+    "previous_page": "uplead:previousPage",
+    "first_page": "uplead:isFirstPage",
+    "last_page": "uplead:isLastPage",
+
+    "contacts_count": "schema:numberOfItems",
+    "contact_ids": "uplead:contactIds",
+    "list_id": "uplead:listId"
+  }
+}

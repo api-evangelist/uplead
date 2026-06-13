@@ -43,7 +43,7 @@ apis:
       - type: Documentation
         url: https://docs.uplead.com/
       - type: OpenAPI
-        url: https://docs.uplead.com/
+        url: openapi/uplead-openapi.json
     contact:
       - FN: UpLead Support
         url: https://www.uplead.com/contact/

@@ -1,0 +1,25 @@
+{
+  "data": {
+    "id": "p_xyz789",
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "title": "Vice President of Marketing",
+    "job_function": "marketing",
+    "job_sub_function": "Brand Marketing",
+    "management_level": "VP",
+    "gender": "Female",
+    "email": "jane.smith@acme.com",
+    "email_status": "valid",
+    "phone_number": "+14155550101",
+    "mobile_directdial": "+14155550102",
+    "city": "San Francisco",
+    "state": "CA",
+    "county": "San Francisco",
+    "country": "US",
+    "linkedin_url": "https://www.linkedin.com/in/janesmith",
+    "industry": "Software",
+    "domain": "acme.com",
+    "company_name": "Acme Corporation"
+  },
+  "availableCredits": 4849
+}
