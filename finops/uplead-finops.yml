@@ -1,0 +1,53 @@
+name: UpLead FinOps
+description: Financial operations guidance for managing UpLead API costs and credit consumption
+url: https://www.uplead.com/pricing
+costModel:
+  type: credit-based
+  description: >
+    UpLead uses a credit-based billing model. Each credit unlocks one verified
+    contact or company record. You are only charged when verified data is returned;
+    unsuccessful queries or unverifiable emails do not consume credits.
+  unit: credit
+  chargeEvents:
+    - event: Contact record returned
+      credits: 1
+      notes: Applies to person-search, prospector-search, and combined-search endpoints
+    - event: Company record returned
+      credits: 1
+      notes: Applies to company-search endpoint
+    - event: Email status Valid
+      credits: 1
+      notes: Credit charged only when email verification status is Valid
+    - event: Email status Accept All
+      credits: 1
+      notes: Credit charged when email accepts all but cannot be individually verified
+  noChargeEvents:
+    - event: Query returns no results
+    - event: Email status Invalid
+    - event: Email status Unknown
+    - event: Company Logo API usage
+      notes: Free and unlimited with attribution required
+
+optimization:
+  - tip: Use prospector-preview endpoint to preview result counts before running full searches (resellers only)
+  - tip: Apply granular filters in prospector-search to target precise audiences and avoid wasted credits
+  - tip: Use suppression list uploads (Plus plan and above) to avoid re-purchasing known contacts
+  - tip: Leverage combined-search to retrieve person and company data in a single credit rather than separate queries
+  - tip: Monitor credits balance via the /credits endpoint before bulk operations
+  - tip: Annual billing plans offer significantly more credits per dollar compared to monthly plans
+
+annualSavings:
+  - plan: Essentials
+    monthly_cost: 99
+    monthly_credits: 170
+    annual_monthly_cost: 74
+    annual_credits: 2040
+    annual_savings_percent: 25
+    credit_increase_percent: 1100
+  - plan: Plus
+    monthly_cost: 199
+    monthly_credits: 400
+    annual_monthly_cost: 149
+    annual_credits: 4800
+    annual_savings_percent: 25
+    credit_increase_percent: 1100

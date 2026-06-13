@@ -1,0 +1,95 @@
+name: UpLead Plans and Pricing
+description: Pricing plans and credit packages for UpLead B2B contact and company data platform
+url: https://www.uplead.com/pricing
+plans:
+  - name: Free Trial
+    description: 7-day free trial to explore the platform
+    price: 0
+    currency: USD
+    period: trial
+    credits: 5
+    features:
+      - Verified emails
+      - Mobile phones
+      - Chrome extension
+
+  - name: Essentials
+    description: Entry-level plan for individuals and small teams
+    price: 99
+    currency: USD
+    period: monthly
+    credits: 170
+    features:
+      - Verified emails
+      - Mobile phones
+      - Chrome extension
+      - CRM integration (Salesforce, HubSpot, Zoho, Pipedrive)
+      - 1500+ app integrations via Zapier
+
+  - name: Essentials Annual
+    description: Essentials plan billed annually at a discounted rate
+    price: 74
+    currency: USD
+    period: monthly
+    billingCycle: annual
+    credits: 2040
+    features:
+      - Verified emails
+      - Mobile phones
+      - Chrome extension
+      - CRM integration (Salesforce, HubSpot, Zoho, Pipedrive)
+      - 1500+ app integrations via Zapier
+      - Company news alerts
+
+  - name: Plus
+    description: Advanced plan for growing sales teams with enrichment capabilities
+    price: 199
+    currency: USD
+    period: monthly
+    credits: 400
+    features:
+      - Everything in Essentials
+      - Data enrichment
+      - Email pattern intelligence
+      - Technographics (16000+ technologies)
+      - Advanced filters
+      - Suppression list uploads
+
+  - name: Plus Annual
+    description: Plus plan billed annually at a discounted rate
+    price: 149
+    currency: USD
+    period: monthly
+    billingCycle: annual
+    credits: 4800
+    features:
+      - Everything in Plus
+      - Company news alerts
+
+  - name: Professional
+    description: Enterprise plan with full API access and advanced features
+    price: custom
+    currency: USD
+    period: annual
+    credits: custom
+    features:
+      - Buyer intent data
+      - All search filters
+      - Full API access
+      - Bi-directional CRM sync
+      - Competitor intelligence
+      - Team management
+      - Dedicated success manager
+      - Onboarding specialist
+      - Priority phone support
+
+creditModel:
+  description: Credits unlock a contact for download or CRM export
+  unit: credit
+  granularity: One credit per verified contact or company record returned
+  noChargeConditions:
+    - Unsuccessful queries return no results
+    - Email verification status is Unknown or Invalid
+  chargeConditions:
+    - Email verification status is Valid
+    - Email verification status is Accept All

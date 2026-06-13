@@ -1,0 +1,33 @@
+name: UpLead Rate Limits
+description: API rate limits and throttling policies for the UpLead API
+url: https://docs.uplead.com/
+limits:
+  - name: Standard Rate Limit
+    description: Maximum number of API requests allowed per minute
+    requests: 500
+    period: minute
+    scope: per API key
+
+headers:
+  - name: X-RateLimit-Limit
+    description: The maximum number of requests allowed in the current rate limit window
+  - name: X-RateLimit-Remaining
+    description: The number of requests remaining in the current rate limit window
+  - name: X-RateLimit-Reset
+    description: UTC epoch timestamp indicating when the current rate limit window resets
+  - name: Retry-After
+    description: Number of seconds to wait before retrying after a rate limit error (429 response)
+
+errorCodes:
+  - code: 429
+    name: Too Many Requests
+    description: Rate limit exceeded; check Retry-After header for reset time
+  - code: 400
+    name: Bad Request
+    description: Invalid parameters supplied in the request
+  - code: 401
+    name: Unauthorized
+    description: Invalid or missing API key
+  - code: 403
+    name: Forbidden
+    description: Account is paused or lacks an active subscription

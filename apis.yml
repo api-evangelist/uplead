@@ -1,0 +1,73 @@
+aid: uplead
+name: UpLead
+description: >
+  UpLead is a B2B contact and company data platform providing a REST API for
+  searching leads, verifying emails, accessing company profiles, and enriching
+  contact information. The API enables developers to look up verified contacts
+  by email or name, search companies by domain or name, run prospector queries
+  to find contacts by job title or function, and perform combined person-plus-company
+  lookups in a single call. UpLead operates on a credit-based billing model
+  where charges only apply when verified data is returned.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: https://raw.githubusercontent.com/api-evangelist/uplead/refs/heads/main/apis.yml
+created: "2026-06-13"
+modified: "2026-06-13"
+specificationVersion: "0.19"
+tags:
+  - B2B
+  - Lead Generation
+  - Contact Data
+  - Company Data
+  - Email Verification
+  - Data Enrichment
+  - Sales Intelligence
+apis:
+  - name: UpLead API
+    description: >
+      REST API for accessing UpLead's B2B contact and company database.
+      Supports company search and enrichment, person search and enrichment,
+      combined person-and-company lookup, prospector search for discovering
+      contacts by title or function, email verification, credit balance
+      checking, and list management.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://docs.uplead.com/
+    baseURL: https://api.uplead.com/v2/
+    tags:
+      - B2B
+      - Lead Generation
+      - Contact Data
+      - Company Data
+      - Email Verification
+      - Data Enrichment
+    properties:
+      - type: Documentation
+        url: https://docs.uplead.com/
+      - type: OpenAPI
+        url: https://docs.uplead.com/
+    contact:
+      - FN: UpLead Support
+        url: https://www.uplead.com/contact/
+common:
+  - type: Website
+    url: https://www.uplead.com/
+  - type: Documentation
+    url: https://docs.uplead.com/
+  - type: Blog
+    url: https://www.uplead.com/blog/
+  - type: Pricing
+    url: https://www.uplead.com/pricing
+  - type: StatusPage
+    url: https://status.uplead.com/
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/uplead-com/
+  - type: X
+    url: https://x.com/UpLeadHQ
+  - type: Plans
+    url: plans/uplead-plans-pricing.yml
+  - type: RateLimits
+    url: rate-limits/uplead-rate-limits.yml
+  - type: FinOps
+    url: finops/uplead-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com
