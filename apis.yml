@@ -8,7 +8,7 @@ description: >
   to find contacts by job title or function, and perform combined person-plus-company
   lookups in a single call. UpLead operates on a credit-based billing model
   where charges only apply when verified data is returned.
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 url: https://raw.githubusercontent.com/api-evangelist/uplead/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -29,7 +29,7 @@ apis:
       combined person-and-company lookup, prospector search for discovering
       contacts by title or function, email verification, credit balance
       checking, and list management.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://docs.uplead.com/
     baseURL: https://api.uplead.com/v2/
     tags:
