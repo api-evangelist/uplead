@@ -48,6 +48,10 @@ apis:
       - FN: UpLead Support
         url: https://www.uplead.com/contact/
 common:
+  - type: DomainSecurity
+    url: security/uplead-domain-security.yml
+  - type: Authentication
+    url: authentication/uplead-authentication.yml
   - type: Website
     url: https://www.uplead.com/
   - type: Documentation

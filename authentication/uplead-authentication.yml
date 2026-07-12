@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/uplead-openapi.json
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: Your UpLead API key passed as a header value.
+  sources:
+  - openapi/uplead-openapi.json
