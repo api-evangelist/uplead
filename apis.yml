@@ -48,6 +48,8 @@ apis:
       - FN: UpLead Support
         url: https://www.uplead.com/contact/
 common:
+  - type: AgenticAccess
+    url: agentic-access/uplead-agentic-access.yml
   - type: DomainSecurity
     url: security/uplead-domain-security.yml
   - type: Authentication
