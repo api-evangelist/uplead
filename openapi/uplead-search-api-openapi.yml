@@ -1,0 +1,212 @@
+openapi: 3.0.3
+info:
+  title: UpLead Account Search API
+  description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
+  version: 2.0.0
+  contact:
+    name: UpLead Support
+    url: https://www.uplead.com/contact/
+  termsOfService: https://www.uplead.com/terms/
+  license:
+    name: Proprietary
+servers:
+- url: https://api.uplead.com/v2
+  description: UpLead API v2
+- url: https://logo.uplead.com
+  description: UpLead Logo CDN
+security:
+- ApiKeyAuth: []
+tags:
+- name: Search
+  description: General search operations.
+paths:
+  /quick-search:
+    post:
+      operationId: quickSearch
+      summary: Quick search for contacts or companies (Professional+ plans)
+      description: Mixed-type search returning either contact or company results depending on the type parameter.
+      tags:
+      - Search
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - type
+              properties:
+                type:
+                  type: string
+                  enum:
+                  - contact
+                  - company
+                text:
+                  type: string
+                domain:
+                  type: string
+                domains:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: string
+                job_function:
+                  type: array
+                  items:
+                    type: string
+                job_sub_function:
+                  type: array
+                  items:
+                    type: string
+                management_level:
+                  type: array
+                  items:
+                    type: string
+                titles:
+                  type: array
+                  items:
+                    type: string
+                title_search_mode:
+                  type: string
+                  enum:
+                  - include
+                  - exact
+                cities:
+                  type: array
+                  items:
+                    type: string
+                states:
+                  type: array
+                  items:
+                    type: string
+                countries:
+                  type: array
+                  items:
+                    type: string
+                regions:
+                  type: array
+                  items:
+                    type: string
+                location_target:
+                  type: string
+                  enum:
+                  - contact
+                  - company
+                business_types:
+                  type: array
+                  items:
+                    type: string
+                industries:
+                  type: array
+                  items:
+                    type: string
+                sic_codes:
+                  type: array
+                  items:
+                    type: string
+                naics_codes:
+                  type: array
+                  items:
+                    type: string
+                employees:
+                  type: array
+                  items:
+                    type: string
+                revenues:
+                  type: array
+                  items:
+                    type: string
+                exclude_eu:
+                  type: boolean
+                exclusion_list_names:
+                  type: array
+                  items:
+                    type: string
+                count_only:
+                  type: boolean
+                page:
+                  type: integer
+                  default: 1
+                per_page:
+                  type: integer
+                  default: 25
+                  maximum: 100
+      responses:
+        '200':
+          description: Successful quick search results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    enum:
+                    - contact
+                    - company
+                  results:
+                    type: array
+                    items: {}
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  availableCredits:
+                    type: integer
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        next_page:
+          type: integer
+          nullable: true
+        previous_page:
+          type: integer
+          nullable: true
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your UpLead API key passed as a header value.

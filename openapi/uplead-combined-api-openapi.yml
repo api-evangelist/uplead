@@ -1,0 +1,332 @@
+openapi: 3.0.3
+info:
+  title: UpLead Account Combined API
+  description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
+  version: 2.0.0
+  contact:
+    name: UpLead Support
+    url: https://www.uplead.com/contact/
+  termsOfService: https://www.uplead.com/terms/
+  license:
+    name: Proprietary
+servers:
+- url: https://api.uplead.com/v2
+  description: UpLead API v2
+- url: https://logo.uplead.com
+  description: UpLead Logo CDN
+security:
+- ApiKeyAuth: []
+tags:
+- name: Combined
+  description: Combined person and company lookup.
+paths:
+  /combined-search:
+    get:
+      operationId: combinedSearchGet
+      summary: Combined person and company lookup by email
+      description: Returns person data plus nested company data in a single call. Requires email.
+      tags:
+      - Combined
+      parameters:
+      - name: email
+        in: query
+        required: true
+        schema:
+          type: string
+          format: email
+      responses:
+        '200':
+          description: Successful combined lookup.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CombinedPersonRecord'
+                  availableCredits:
+                    type: integer
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: combinedSearchPost
+      summary: Combined person and company lookup (POST)
+      tags:
+      - Combined
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - email
+              properties:
+                email:
+                  type: string
+                  format: email
+      responses:
+        '200':
+          description: Successful combined lookup.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    $ref: '#/components/schemas/CombinedPersonRecord'
+                  availableCredits:
+                    type: integer
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CompanyRecord:
+      type: object
+      description: Company data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead company ID.
+        company_name:
+          type: string
+        domain:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        phone_number:
+          type: string
+        fax_number:
+          type: string
+        employees:
+          type: string
+          enum:
+          - 1-10
+          - 11-50
+          - 51-200
+          - 201-500
+          - 501-1000
+          - 1001-5000
+          - 5001-10000
+          - 10001+
+        revenue:
+          type: string
+          enum:
+          - 0-1m
+          - 1m-10m
+          - 10m-50m
+          - 50m-100m
+          - 100m-200m
+          - 200m-1b
+          - 1b+
+        industry:
+          type: string
+        sic_code:
+          type: integer
+        sic_description:
+          type: string
+        naics_code:
+          type: integer
+        naics_description:
+          type: string
+        description:
+          type: string
+        year_founded:
+          type: integer
+        logo:
+          type: string
+          format: uri
+        linkedin_url:
+          type: string
+          format: uri
+        twitter_url:
+          type: string
+          format: uri
+        facebook_url:
+          type: string
+          format: uri
+        youtube_url:
+          type: string
+          format: uri
+        crunchbase_url:
+          type: string
+          format: uri
+        yelp_url:
+          type: string
+          format: uri
+        instagram_url:
+          type: string
+          format: uri
+        type:
+          type: string
+          enum:
+          - private
+          - public
+          - education
+          - government
+          - non-profit
+        ticker:
+          type: string
+        exchange:
+          type: string
+        alexa_rank:
+          type: integer
+    CombinedPersonRecord:
+      allOf:
+      - $ref: '#/components/schemas/PersonRecord'
+      - type: object
+        properties:
+          company:
+            $ref: '#/components/schemas/CompanyRecord'
+    PersonRecord:
+      type: object
+      description: Person/contact data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead person ID.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
+        job_function:
+          type: string
+          enum:
+          - advisory
+          - analyst
+          - creative
+          - education
+          - engineering
+          - finance
+          - fulfillment
+          - health
+          - hospitality
+          - human resources
+          - legal
+          - manufacturing
+          - marketing
+          - operations
+          - partnerships
+          - product
+          - professional service
+          - public service
+          - research
+          - sales
+          - sales engineering
+          - support
+          - trade
+          - unemployed
+        job_sub_function:
+          type: string
+        management_level:
+          type: string
+          enum:
+          - M
+          - D
+          - VP
+          - C
+          description: M=Manager, D=Director, VP=Vice President, C=C-Suite
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        email_status:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - accept_all
+          - unknown
+        phone_number:
+          type: string
+        mobile_directdial:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        linkedin_url:
+          type: string
+          format: uri
+        industry:
+          type: string
+        domain:
+          type: string
+        company_name:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your UpLead API key passed as a header value.

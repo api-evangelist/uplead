@@ -1,0 +1,78 @@
+openapi: 3.0.3
+info:
+  title: UpLead Account Reference API
+  description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
+  version: 2.0.0
+  contact:
+    name: UpLead Support
+    url: https://www.uplead.com/contact/
+  termsOfService: https://www.uplead.com/terms/
+  license:
+    name: Proprietary
+servers:
+- url: https://api.uplead.com/v2
+  description: UpLead API v2
+- url: https://logo.uplead.com
+  description: UpLead Logo CDN
+security:
+- ApiKeyAuth: []
+tags:
+- name: Reference
+  description: Reference data lookups.
+paths:
+  /industries:
+    get:
+      operationId: searchIndustriesGet
+      summary: Search the industry database
+      description: Returns industry records matching an optional text query, for use as filter values in prospector searches.
+      tags:
+      - Reference
+      parameters:
+      - name: text
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful industry search.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/IndustryRecord'
+                  total:
+                    type: string
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    IndustryRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        industry_name:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your UpLead API key passed as a header value.

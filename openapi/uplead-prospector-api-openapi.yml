@@ -1,0 +1,599 @@
+openapi: 3.0.3
+info:
+  title: UpLead Account Prospector API
+  description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
+  version: 2.0.0
+  contact:
+    name: UpLead Support
+    url: https://www.uplead.com/contact/
+  termsOfService: https://www.uplead.com/terms/
+  license:
+    name: Proprietary
+servers:
+- url: https://api.uplead.com/v2
+  description: UpLead API v2
+- url: https://logo.uplead.com
+  description: UpLead Logo CDN
+security:
+- ApiKeyAuth: []
+tags:
+- name: Prospector
+  description: Prospector search operations for discovering contacts.
+paths:
+  /prospector-search:
+    post:
+      operationId: prospectorSearch
+      summary: Search contacts within a company domain
+      description: Paginated search to find contacts at a company by domain, with filters for job function, management level, title, and location.
+      tags:
+      - Prospector
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - domain
+              properties:
+                domain:
+                  type: string
+                job_function:
+                  type: string
+                  enum:
+                  - advisory
+                  - analyst
+                  - creative
+                  - education
+                  - engineering
+                  - finance
+                  - fulfillment
+                  - health
+                  - hospitality
+                  - human resources
+                  - legal
+                  - manufacturing
+                  - marketing
+                  - operations
+                  - partnerships
+                  - product
+                  - professional service
+                  - public service
+                  - research
+                  - sales
+                  - sales engineering
+                  - support
+                  - trade
+                  - unemployed
+                job_sub_function:
+                  type: string
+                management_level:
+                  type: string
+                  enum:
+                  - M
+                  - D
+                  - VP
+                  - C
+                  - CX
+                title:
+                  type: string
+                titles:
+                  type: array
+                  items:
+                    type: string
+                title_search_mode:
+                  type: string
+                  enum:
+                  - include
+                  - exact
+                city:
+                  type: string
+                cities:
+                  type: array
+                  items:
+                    type: string
+                state:
+                  type: string
+                states:
+                  type: array
+                  items:
+                    type: string
+                country:
+                  type: string
+                countries:
+                  type: array
+                  items:
+                    type: string
+                regions:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - AMER
+                    - EMEA
+                name:
+                  type: string
+                exclusion_list_names:
+                  type: array
+                  items:
+                    type: string
+                email_status:
+                  type: string
+                  enum:
+                  - valid
+                  - invalid
+                  - accept_all
+                  - unknown
+                count_only:
+                  type: boolean
+                page:
+                  type: integer
+                  default: 1
+                per_page:
+                  type: integer
+                  default: 25
+                  maximum: 100
+      responses:
+        '200':
+          description: Successful prospector search results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PersonRecord'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  availableCredits:
+                    type: integer
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /prospector-pro-search:
+    post:
+      operationId: prospectorProSearch
+      summary: Advanced prospector search with company filters (Professional+ plans)
+      description: Expanded prospector search supporting multiple domains, industry, revenue, employee size, and business type filters. Returns person records with nested company data.
+      tags:
+      - Prospector
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                domain:
+                  type: string
+                domains:
+                  type: array
+                  items:
+                    type: string
+                name:
+                  type: string
+                job_function:
+                  type: string
+                  enum:
+                  - advisory
+                  - analyst
+                  - creative
+                  - education
+                  - engineering
+                  - finance
+                  - fulfillment
+                  - health
+                  - hospitality
+                  - human resources
+                  - legal
+                  - manufacturing
+                  - marketing
+                  - operations
+                  - partnerships
+                  - product
+                  - professional service
+                  - public service
+                  - research
+                  - sales
+                  - sales engineering
+                  - support
+                  - trade
+                  - unemployed
+                job_sub_function:
+                  type: string
+                management_level:
+                  type: string
+                  enum:
+                  - M
+                  - D
+                  - VP
+                  - C
+                  - CX
+                titles:
+                  type: array
+                  items:
+                    type: string
+                title_search_mode:
+                  type: string
+                  enum:
+                  - include
+                  - exact
+                cities:
+                  type: array
+                  items:
+                    type: string
+                states:
+                  type: array
+                  items:
+                    type: string
+                countries:
+                  type: array
+                  items:
+                    type: string
+                regions:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - AMER
+                    - APAC
+                    - EMEA
+                    - LATAM
+                location_target:
+                  type: string
+                  enum:
+                  - contact
+                  - company
+                business_types:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - education
+                    - government
+                    - non_profit
+                    - public
+                    - private
+                    - subsidiary
+                industries:
+                  type: array
+                  items:
+                    type: string
+                industries_ids:
+                  type: array
+                  items:
+                    type: string
+                sic_codes:
+                  type: array
+                  items:
+                    type: string
+                naics_codes:
+                  type: array
+                  items:
+                    type: string
+                employees:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - 1-10
+                    - 11-50
+                    - 51-200
+                    - 201-500
+                    - 501-1000
+                    - 1001-5000
+                    - 5001-10000
+                    - 10001+
+                revenues:
+                  type: array
+                  items:
+                    type: string
+                    enum:
+                    - 0-1m
+                    - 1m-10m
+                    - 10m-50m
+                    - 50m-100m
+                    - 100m-200m
+                    - 200m-1b
+                    - 1b+
+                exclude_eu:
+                  type: boolean
+                exclusion_list_names:
+                  type: array
+                  items:
+                    type: string
+                count_only:
+                  type: boolean
+                page:
+                  type: integer
+                  default: 1
+                per_page:
+                  type: integer
+                  default: 25
+                  maximum: 100
+      responses:
+        '200':
+          description: Successful prospector pro search results.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/CombinedPersonRecord'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+                  availableCredits:
+                    type: integer
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '429':
+          description: Rate limit exceeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    CompanyRecord:
+      type: object
+      description: Company data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead company ID.
+        company_name:
+          type: string
+        domain:
+          type: string
+        address:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        zip:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        phone_number:
+          type: string
+        fax_number:
+          type: string
+        employees:
+          type: string
+          enum:
+          - 1-10
+          - 11-50
+          - 51-200
+          - 201-500
+          - 501-1000
+          - 1001-5000
+          - 5001-10000
+          - 10001+
+        revenue:
+          type: string
+          enum:
+          - 0-1m
+          - 1m-10m
+          - 10m-50m
+          - 50m-100m
+          - 100m-200m
+          - 200m-1b
+          - 1b+
+        industry:
+          type: string
+        sic_code:
+          type: integer
+        sic_description:
+          type: string
+        naics_code:
+          type: integer
+        naics_description:
+          type: string
+        description:
+          type: string
+        year_founded:
+          type: integer
+        logo:
+          type: string
+          format: uri
+        linkedin_url:
+          type: string
+          format: uri
+        twitter_url:
+          type: string
+          format: uri
+        facebook_url:
+          type: string
+          format: uri
+        youtube_url:
+          type: string
+          format: uri
+        crunchbase_url:
+          type: string
+          format: uri
+        yelp_url:
+          type: string
+          format: uri
+        instagram_url:
+          type: string
+          format: uri
+        type:
+          type: string
+          enum:
+          - private
+          - public
+          - education
+          - government
+          - non-profit
+        ticker:
+          type: string
+        exchange:
+          type: string
+        alexa_rank:
+          type: integer
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        next_page:
+          type: integer
+          nullable: true
+        previous_page:
+          type: integer
+          nullable: true
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
+    CombinedPersonRecord:
+      allOf:
+      - $ref: '#/components/schemas/PersonRecord'
+      - type: object
+        properties:
+          company:
+            $ref: '#/components/schemas/CompanyRecord'
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    PersonRecord:
+      type: object
+      description: Person/contact data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead person ID.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
+        job_function:
+          type: string
+          enum:
+          - advisory
+          - analyst
+          - creative
+          - education
+          - engineering
+          - finance
+          - fulfillment
+          - health
+          - hospitality
+          - human resources
+          - legal
+          - manufacturing
+          - marketing
+          - operations
+          - partnerships
+          - product
+          - professional service
+          - public service
+          - research
+          - sales
+          - sales engineering
+          - support
+          - trade
+          - unemployed
+        job_sub_function:
+          type: string
+        management_level:
+          type: string
+          enum:
+          - M
+          - D
+          - VP
+          - C
+          description: M=Manager, D=Director, VP=Vice President, C=C-Suite
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        email_status:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - accept_all
+          - unknown
+        phone_number:
+          type: string
+        mobile_directdial:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        linkedin_url:
+          type: string
+          format: uri
+        industry:
+          type: string
+        domain:
+          type: string
+        company_name:
+          type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your UpLead API key passed as a header value.

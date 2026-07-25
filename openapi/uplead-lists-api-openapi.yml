@@ -1,0 +1,441 @@
+openapi: 3.0.3
+info:
+  title: UpLead Account Lists API
+  description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
+  version: 2.0.0
+  contact:
+    name: UpLead Support
+    url: https://www.uplead.com/contact/
+  termsOfService: https://www.uplead.com/terms/
+  license:
+    name: Proprietary
+servers:
+- url: https://api.uplead.com/v2
+  description: UpLead API v2
+- url: https://logo.uplead.com
+  description: UpLead Logo CDN
+security:
+- ApiKeyAuth: []
+tags:
+- name: Lists
+  description: Contact list management operations.
+paths:
+  /lists:
+    get:
+      operationId: getLists
+      summary: Get paginated contact lists
+      description: Returns all contact lists for the authenticated account with optional text filter.
+      tags:
+      - Lists
+      parameters:
+      - name: text
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: per_page
+        in: query
+        schema:
+          type: string
+          default: '15'
+      responses:
+        '200':
+          description: Paginated list of contact lists.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ListRecord'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    post:
+      operationId: createList
+      summary: Create a new contact list
+      tags:
+      - Lists
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - name
+              properties:
+                name:
+                  type: string
+      responses:
+        '200':
+          description: Created list record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRecord'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /lists/{list_id}:
+    get:
+      operationId: getList
+      summary: Retrieve a single contact list
+      tags:
+      - Lists
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Single list record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRecord'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+    delete:
+      operationId: deleteList
+      summary: Delete a contact list
+      tags:
+      - Lists
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: List deleted successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  data:
+                    type: object
+                    nullable: true
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /lists/{list_id}/contacts:
+    get:
+      operationId: getListContacts
+      summary: Retrieve contacts in a list
+      tags:
+      - Lists
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: text
+        in: query
+        schema:
+          type: string
+      - name: page
+        in: query
+        schema:
+          type: integer
+          default: 1
+      - name: per_page
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Paginated contact results for the list.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/PersonRecord'
+                  meta:
+                    $ref: '#/components/schemas/PaginationMeta'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /lists/{list_id}/contacts/add:
+    post:
+      operationId: addContactsToList
+      summary: Add contacts to a list
+      tags:
+      - Lists
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - contact_ids
+              properties:
+                contact_ids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Updated list record.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRecord'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /lists/{list_id}/contacts/delete:
+    delete:
+      operationId: deleteContactsFromList
+      summary: Delete contacts from a list
+      tags:
+      - Lists
+      parameters:
+      - name: list_id
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - contact_ids
+              properties:
+                contact_ids:
+                  type: array
+                  items:
+                    type: string
+      responses:
+        '200':
+          description: Updated list record after contact removal.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListRecord'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: List not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+components:
+  schemas:
+    ListRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contacts_count:
+          type: integer
+    PersonRecord:
+      type: object
+      description: Person/contact data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead person ID.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
+        job_function:
+          type: string
+          enum:
+          - advisory
+          - analyst
+          - creative
+          - education
+          - engineering
+          - finance
+          - fulfillment
+          - health
+          - hospitality
+          - human resources
+          - legal
+          - manufacturing
+          - marketing
+          - operations
+          - partnerships
+          - product
+          - professional service
+          - public service
+          - research
+          - sales
+          - sales engineering
+          - support
+          - trade
+          - unemployed
+        job_sub_function:
+          type: string
+        management_level:
+          type: string
+          enum:
+          - M
+          - D
+          - VP
+          - C
+          description: M=Manager, D=Director, VP=Vice President, C=C-Suite
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        email_status:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - accept_all
+          - unknown
+        phone_number:
+          type: string
+        mobile_directdial:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        linkedin_url:
+          type: string
+          format: uri
+        industry:
+          type: string
+        domain:
+          type: string
+        company_name:
+          type: string
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        next_page:
+          type: integer
+          nullable: true
+        previous_page:
+          type: integer
+          nullable: true
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: Your UpLead API key passed as a header value.
