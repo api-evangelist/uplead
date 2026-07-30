@@ -8,7 +8,20 @@ description: >
   to find contacts by job title or function, and perform combined person-plus-company
   lookups in a single call. UpLead operates on a credit-based billing model
   where charges only apply when verified data is returned.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Freemium (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/uplead.png
 url: https://raw.githubusercontent.com/api-evangelist/uplead/refs/heads/main/apis.yml
 created: "2026-06-13"
 modified: "2026-06-13"
@@ -22,31 +35,102 @@ tags:
   - Data Enrichment
   - Sales Intelligence
 apis:
-  - name: UpLead API
-    description: >
-      REST API for accessing UpLead's B2B contact and company database.
-      Supports company search and enrichment, person search and enrichment,
-      combined person-and-company lookup, prospector search for discovering
-      contacts by title or function, email verification, credit balance
-      checking, and list management.
-    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-    humanURL: https://docs.uplead.com/
-    baseURL: https://api.uplead.com/v2/
-    tags:
-      - B2B
-      - Lead Generation
-      - Contact Data
-      - Company Data
-      - Email Verification
-      - Data Enrichment
-    properties:
-      - type: Documentation
-        url: https://docs.uplead.com/
-      - type: OpenAPI
-        url: openapi/uplead-openapi.json
-    contact:
-      - FN: UpLead Support
-        url: https://www.uplead.com/contact/
+- aid: uplead:uplead-account-api
+  name: UpLead Account API
+  description: Account and credit management.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Account
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-account-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-combined-api
+  name: UpLead Combined API
+  description: Combined person and company lookup.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Combined
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-combined-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-company-api
+  name: UpLead Company API
+  description: Company search and enrichment operations.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-company-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-lists-api
+  name: UpLead Lists API
+  description: Contact list management operations.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Lists
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-lists-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-person-api
+  name: UpLead Person API
+  description: Person/contact search and enrichment operations.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Person
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-person-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-prospector-api
+  name: UpLead Prospector API
+  description: Prospector search operations for discovering contacts.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Prospector
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-prospector-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-reference-api
+  name: UpLead Reference API
+  description: Reference data lookups.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Reference
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-reference-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
+- aid: uplead:uplead-search-api
+  name: UpLead Search API
+  description: General search operations.
+  humanURL: https://docs.uplead.com/
+  baseURL: https://api.uplead.com/v2/
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/uplead-search-api-openapi.yml
+  - type: Documentation
+    url: https://docs.uplead.com/
 common:
   - type: AgenticAccess
     url: agentic-access/uplead-agentic-access.yml
