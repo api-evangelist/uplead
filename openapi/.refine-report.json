@@ -1,0 +1,28 @@
+{
+  "provider": "uplead",
+  "sources": [
+    "uplead-account-api-openapi.yml",
+    "uplead-combined-api-openapi.yml",
+    "uplead-company-api-openapi.yml",
+    "uplead-lists-api-openapi.yml",
+    "uplead-person-api-openapi.yml",
+    "uplead-prospector-api-openapi.yml",
+    "uplead-reference-api-openapi.yml",
+    "uplead-search-api-openapi.yml"
+  ],
+  "outputs": [
+    "uplead-account-api-openapi.yml",
+    "uplead-combined-api-openapi.yml",
+    "uplead-company-api-openapi.yml",
+    "uplead-lists-api-openapi.yml",
+    "uplead-person-api-openapi.yml",
+    "uplead-prospector-api-openapi.yml",
+    "uplead-reference-api-openapi.yml",
+    "uplead-search-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
