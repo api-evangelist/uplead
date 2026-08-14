@@ -24,7 +24,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/uplead.png
 url: https://raw.githubusercontent.com/api-evangelist/uplead/refs/heads/main/apis.yml
 created: "2026-06-13"
-modified: "2026-06-13"
+modified: "2026-08-13"
 specificationVersion: "0.19"
 tags:
   - B2B
@@ -45,6 +45,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-account-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-account-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-combined-api
@@ -57,6 +59,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-combined-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-combined-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-company-api
@@ -69,6 +73,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-company-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-company-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-lists-api
@@ -81,6 +87,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-lists-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-lists-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-person-api
@@ -93,6 +101,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-person-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-person-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-prospector-api
@@ -105,6 +115,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-prospector-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-prospector-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-reference-api
@@ -117,6 +129,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-reference-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-reference-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 - aid: uplead:uplead-search-api
@@ -129,6 +143,8 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/uplead-search-api-openapi.yml
+  - type: Overlay
+    url: overlays/uplead-search-api-overlay.yaml
   - type: Documentation
     url: https://docs.uplead.com/
 common:
@@ -145,7 +161,7 @@ common:
   - type: Blog
     url: https://www.uplead.com/blog/
   - type: Pricing
-    url: https://www.uplead.com/pricing
+    url: https://www.uplead.com/pricing/
   - type: StatusPage
     url: https://status.uplead.com/
   - type: LinkedIn
@@ -158,6 +174,46 @@ common:
     url: rate-limits/uplead-rate-limits.yml
   - type: FinOps
     url: finops/uplead-finops.yml
+  - type: Packages
+    url: packages/uplead-packages.yml
+  - type: Conventions
+    url: conventions/uplead-conventions.yml
+  - type: ErrorCatalog
+    url: errors/uplead-problem-types.yml
+  - type: DataModel
+    url: data-model/uplead-data-model.yml
+  - type: Conformance
+    url: conformance/uplead-conformance.yml
+  - type: Lifecycle
+    url: lifecycle/uplead-lifecycle.yml
+  - type: ChangeLog
+    url: changelog/uplead-changelog.yml
+  - type: ChangeLog
+    name: UpLead Release Notes
+    url: https://support.uplead.com/en/collections/19646601-release-notes
+  - type: LLMsTxt
+    url: llms/uplead-llms.txt
+  - type: AgentSkill
+    url: skills/_index.yml
+  - type: DeveloperPortal
+    url: https://www.uplead.com/data-api/
+  - type: APIReference
+    url: https://docs.uplead.com/
+  - type: GettingStarted
+    url: https://www.uplead.com/getting-started-with-uplead/
+  - type: Support
+    url: https://support.uplead.com/
+  - type: SignUp
+    url: https://app.uplead.com/signup
+  - type: TermsOfService
+    url: https://www.uplead.com/terms/
+  - type: PrivacyPolicy
+    url: https://www.uplead.com/privacy/
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: enriched
+  artifacts_added: 23
+  pass: local-v1
