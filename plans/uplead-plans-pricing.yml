@@ -1,6 +1,28 @@
+generated: '2026-08-13'
+method: searched
+source: https://www.uplead.com/pricing/
 name: UpLead Plans and Pricing
-description: Pricing plans and credit packages for UpLead B2B contact and company data platform
-url: https://www.uplead.com/pricing
+description: >-
+  Pricing plans and credit packages for the UpLead B2B contact and company data
+  platform, read from the published pricing page. Prices and credit allowances
+  were re-verified against https://www.uplead.com/pricing/ on 2026-08-13. API
+  access is itself a plan feature: the pricing page lists "Full access to
+  UpLead's API to prospect, enrich, and build custom solutions" only on the
+  Professional tier, and the documentation marks Prospector Pro, Quick Search,
+  Industries and Lists as Professional/Elite/Enterprise only.
+url: https://www.uplead.com/pricing/
+plan_count: 7
+currency: USD
+api_access:
+  free_trial: limited
+  essentials: limited
+  plus: limited
+  professional: full
+  note: >-
+    Lower tiers reach the enrichment endpoints only; the full API surface,
+    including Prospector Pro, Quick Search, Industries and Lists, is a
+    Professional-and-above entitlement. A 403 on those endpoints is a plan
+    signal, not a credential problem.
 plans:
   - name: Free Trial
     description: 7-day free trial to explore the platform
@@ -19,6 +41,10 @@ plans:
     currency: USD
     period: monthly
     credits: 170
+    overage:
+      price_per_credit: 0.60
+      currency: USD
+      note: Additional credits published at $0.60 per credit on the pricing page.
     features:
       - Verified emails
       - Mobile phones

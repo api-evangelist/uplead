@@ -1,0 +1,170 @@
+{
+  "item": [
+    {
+      "id": "fbbb9aab-30b4-42a4-8c99-d9a15965ca39",
+      "name": "Account",
+      "description": {
+        "content": "Account and credit management.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4bf31bf5-3168-408f-aefa-8255daa7adda",
+          "name": "Get remaining credit balance",
+          "request": {
+            "name": "Get remaining credit balance",
+            "description": {
+              "content": "Returns the current API credit balance for the authenticated account.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "credits"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "1b175f77-6603-4e13-aa70-745f3f08b4aa",
+              "name": "Successful credit balance response.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"email\": \"IMqH5DTEMtxZ3@BXwtBdDFIsCRgkVrxxjYDySIPNxU.tnm\",\n  \"credits\": 2038\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a36e59e4-5ce0-4017-9046-91648a65e5dc",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "credits"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8146\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.uplead.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "da33035d-a78a-46ab-b760-d10fc32b7622",
+    "name": "UpLead Account API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.\n\nContact Support:\n Name: UpLead Support",
+      "type": "text/plain"
+    }
+  }
+}

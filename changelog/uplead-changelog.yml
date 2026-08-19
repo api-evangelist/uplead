@@ -1,0 +1,91 @@
+generated: '2026-08-13'
+method: searched
+source: https://support.uplead.com/en/collections/19646601-release-notes
+name: UpLead release notes
+description: >-
+  UpLead publishes dated release notes as a collection in its Intercom-hosted
+  Help Center. Fourteen issues are published, running from 2025-06-05 to
+  2026-08-10. These are product/application release notes covering the web
+  application, search filters, billing and CRM integrations — the API itself is
+  not versioned or changelogged separately, and none of the four most recent
+  issues read for this artifact carried an API change.
+url: https://support.uplead.com/en/collections/19646601-release-notes
+scheme: date
+date_format: MM.DD.YYYY
+current_version: null
+entry_count_published: 14
+first_entry: '2025-06-05'
+latest_entry: '2026-08-10'
+api_specific: false
+breaking_changes_flagged: false
+note: >-
+  Entries are titled only by date. There is no semantic version, no
+  breaking-vs-additive labelling, and no API section — an integrator cannot learn
+  from this feed whether an API contract changed.
+
+entries:
+  - date: '2026-08-10'
+    url: https://support.uplead.com/en/articles/16298460-release-notes-08-10-2026
+    api_change: false
+    breaking: false
+    additions:
+      - >-
+        "Includes vs. Exact match" control extended to more filters, including
+        exclusion filters for Contact Name, Company Name, Title and City.
+    fixes:
+      - Company URL overlay no longer distorts other filters in the filter panel.
+      - Exclusion panels scroll correctly.
+      - '"Previous downloads" and "My lists" pickers enlarged to show about ten lists at once.'
+  - date: '2026-07-30'
+    url: https://support.uplead.com/en/articles/16162084-release-notes-07-30-2026
+    api_change: false
+    breaking: false
+    additions:
+      - Clicking a filter bubble opens the specific sub-filter it belongs to.
+    fixes:
+      - Clear-filter now reliably removes filters carried over from an earlier search.
+      - Selecting previous download lists as exclusions no longer fails the search.
+      - Zapier automations now trigger when contacts are unlocked.
+      - Invalid contacts pushed to HubSpot are handled instead of failing silently.
+      - Company download notification links point at the file rather than the verification page.
+  - date: '2026-07-20'
+    url: https://support.uplead.com/en/articles/16003199-release-notes-07-20-2026
+    api_change: false
+    breaking: false
+    additions:
+      - >-
+        New Geotechnical (Geotechnical Engineering) industry classification,
+        adding 1,069,624 contacts across 3,757 companies.
+      - Invoices shown on the Billing page with status and amount, plus a "View invoice" action.
+      - Credit balance updates in real time after any credit-using action.
+      - Maximum upload file size displayed before an upload is attempted.
+    fixes:
+      - Filters persist when navigating between results and search.
+      - Company exclusion preferences apply correctly after login.
+      - Unlocked contacts are immediately available for download.
+      - Download-list notifications, progress indicators and countdown timers fixed.
+      - Payment card can be added in the Offline Payments workflow.
+      - Invoice download links no longer expire.
+  - date: '2026-05-07'
+    url: https://support.uplead.com/en/articles/15250897-release-notes-05-07-2026
+    api_change: false
+  - date: '2026-03-23'
+    url: https://support.uplead.com/en/articles/15251407-release-notes-03-23-2026
+  - date: '2025-12-11'
+    url: https://support.uplead.com/en/articles/15251472-release-notes-12-11-2025
+  - date: '2025-10-21'
+    url: https://support.uplead.com/en/articles/15251574-release-notes-10-21-2025
+  - date: '2025-10-02'
+    url: https://support.uplead.com/en/articles/15251516-release-notes-10-02-2025
+  - date: '2025-09-11'
+    url: https://support.uplead.com/en/articles/15251629-release-notes-09-11-2025
+  - date: '2025-08-07'
+    url: https://support.uplead.com/en/articles/15253052-release-notes-08-07-2025
+  - date: '2025-07-24'
+    url: https://support.uplead.com/en/articles/15253070-release-notes-07-24-2025
+  - date: '2025-07-15'
+    url: https://support.uplead.com/en/articles/15253100-release-notes-07-15-2025
+  - date: '2025-06-26'
+    url: https://support.uplead.com/en/articles/15253119-release-notes-06-26-2025
+  - date: '2025-06-05'
+    url: https://support.uplead.com/en/articles/15253133-release-notes-06-05-2025

@@ -1,0 +1,41 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Search API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Search",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Quick search for contacts or companies (Professional+ plans)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/quick-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Mixed-type search returning either contact or company results depending on the type parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Company API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Company",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search for a company by domain, name, or ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/company-search",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "query",
+                "description": "Internal UpLead company ID."
+              },
+              {
+                "name": "domain",
+                "value": "",
+                "type": "query",
+                "description": "Company domain name."
+              },
+              {
+                "name": "company",
+                "value": "",
+                "type": "query",
+                "description": "Company name."
+              }
+            ]
+          },
+          "docs": "Returns enriched company data from UpLead's B2B database. One of id, domain, or company is required."
+        },
+        {
+          "info": {
+            "name": "Search for a company (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/company-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Returns enriched company data from UpLead's B2B database via POST body. One of id, domain, or company is required."
+        },
+        {
+          "info": {
+            "name": "Convert a company name to its domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/company-name-to-domain",
+            "params": [
+              {
+                "name": "company_name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Looks up the primary web domain for a given company name."
+        },
+        {
+          "info": {
+            "name": "Convert a company name to its domain (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/company-name-to-domain",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Convert a company name to its domain (POST)"
+        },
+        {
+          "info": {
+            "name": "Retrieve company logo by domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/:domain",
+            "params": [
+              {
+                "name": "domain",
+                "value": "apple.com",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Returns the company logo image for the given domain. Uses the logo.uplead.com server."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

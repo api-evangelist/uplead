@@ -1,0 +1,182 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Lists API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Lists",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get paginated contact lists",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/lists",
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns all contact lists for the authenticated account with optional text filter."
+        },
+        {
+          "info": {
+            "name": "Create a new contact list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/lists",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new contact list"
+        },
+        {
+          "info": {
+            "name": "Retrieve a single contact list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single contact list"
+        },
+        {
+          "info": {
+            "name": "Delete a contact list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.uplead.com/v2/lists/:list_id",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a contact list"
+        },
+        {
+          "info": {
+            "name": "Retrieve contacts in a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/lists/:list_id/contacts",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "text",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Retrieve contacts in a list"
+        },
+        {
+          "info": {
+            "name": "Add contacts to a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/lists/:list_id/contacts/add",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Add contacts to a list"
+        },
+        {
+          "info": {
+            "name": "Delete contacts from a list",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.uplead.com/v2/lists/:list_id/contacts/delete",
+            "params": [
+              {
+                "name": "list_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Delete contacts from a list"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

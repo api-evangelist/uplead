@@ -1,16 +1,97 @@
-generated: '2026-07-11'
-method: derived
-source: openapi/uplead-openapi.json
+generated: '2026-08-13'
+method: searched
+docs: https://docs.uplead.com/#authentication
+source: >-
+  https://docs.uplead.com/#authentication, cross-checked against the
+  securitySchemes declared in openapi/uplead-account-api-openapi.yml,
+  openapi/uplead-combined-api-openapi.yml, openapi/uplead-company-api-openapi.yml,
+  openapi/uplead-lists-api-openapi.yml, openapi/uplead-person-api-openapi.yml,
+  openapi/uplead-prospector-api-openapi.yml,
+  openapi/uplead-reference-api-openapi.yml and
+  openapi/uplead-search-api-openapi.yml
+name: UpLead authentication
+description: >-
+  UpLead uses a single static API key on every call. The key is placed in the
+  Authorization header and sent bare — "Authorization: myapikey" — with no Bearer
+  or other scheme prefix, which is the detail most integrations get wrong. There
+  is no OAuth, no OpenID Connect, no mutual TLS, no signing, no key rotation
+  endpoint, and no scope system: one key carries the account's full plan
+  entitlement.
 summary:
   types:
   - apiKey
   api_key_in:
   - header
+  oauth2_flows: []
+  scopes: none
 schemes:
 - name: ApiKeyAuth
   type: apiKey
   in: header
   parameter: Authorization
-  description: Your UpLead API key passed as a header value.
+  scheme_prefix: null
+  description: >-
+    Your UpLead API key passed as the raw value of the Authorization header. The
+    documentation's example is literally `Authorization: myapikey` — replace
+    `myapikey` with your key and add no prefix.
+  required_on: every operation, including getCredits
+  docs: https://docs.uplead.com/#authentication
   sources:
-  - openapi/uplead-openapi.json
+  - openapi/uplead-account-api-openapi.yml
+  - openapi/uplead-combined-api-openapi.yml
+  - openapi/uplead-company-api-openapi.yml
+  - openapi/uplead-lists-api-openapi.yml
+  - openapi/uplead-person-api-openapi.yml
+  - openapi/uplead-prospector-api-openapi.yml
+  - openapi/uplead-reference-api-openapi.yml
+  - openapi/uplead-search-api-openapi.yml
+
+key_management:
+  where: UpLead account settings
+  request_form: https://www.uplead.com/data-api/
+  request_note: >-
+    The API product page routes an API-key request through a Google Form rather
+    than issuing a key self-serve, so obtaining a key is a human-mediated step
+    even though the documentation is fully public.
+  rotation_endpoint: null
+  expiry: null
+  multiple_keys: not documented
+  revocation: not documented
+  guidance: >-
+    "Your API key is what identifies your account, so be sure to keep it secret!
+    Please don't share it with anyone outside of your organization."
+
+unauthenticated_surface:
+  - operation: getCompanyLogo
+    host: https://logo.uplead.com
+    note: >-
+      The Company Logo API is free and requires no key. Attribution back to
+      uplead.com is required wherever the logo is displayed.
+
+failure_modes:
+  - status: 401
+    meaning: The key is wrong or missing.
+    note: >-
+      The most common cause is sending "Authorization: Bearer <key>" instead of
+      the bare key.
+  - status: 403
+    meaning: The key is valid but the account is paused, unsubscribed, or on a plan that does not include this endpoint.
+    note: >-
+      Authorization here is plan-based rather than scope-based. Prospector Pro,
+      Quick Search, Industries and Lists are Professional/Elite/Enterprise only;
+      prospector-preview is reseller-only.
+
+transport:
+  https_required: true
+  tls: see security/uplead-domain-security.yml
+
+not_supported:
+  - oauth2
+  - openIdConnect
+  - mutualTLS
+  - http basic
+  - http bearer
+  - request signing
+  - scopes or granular permissions
+  - service accounts
+  - JWT

@@ -1,0 +1,352 @@
+{
+  "item": [
+    {
+      "id": "d71497b4-4972-47a5-9495-f4874db87e3c",
+      "name": "Search",
+      "description": {
+        "content": "General search operations.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "56eee663-fdd4-47c6-ba39-1135e4e8ca94",
+          "name": "Quick search for contacts or companies (Professional+ plans)",
+          "request": {
+            "name": "Quick search for contacts or companies (Professional+ plans)",
+            "description": {
+              "content": "Mixed-type search returning either contact or company results depending on the type parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "quick-search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c291f93-70c8-40d8-95d9-19dcc7afe209",
+              "name": "Successful quick search results.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quick-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"type\": \"contact\",\n  \"meta\": {\n    \"total\": 4653,\n    \"page\": 8052,\n    \"next_page\": 5333,\n    \"previous_page\": 8903,\n    \"first_page\": false,\n    \"last_page\": false\n  },\n  \"availableCredits\": 5786\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3cf42a3c-01dd-421d-922e-cbdd3735cf92",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quick-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b850f14c-3960-4645-84ab-8854b249d9e4",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quick-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d69d226-b753-4daa-b5ae-130d1087dc88",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quick-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1f2f7b95-cf69-4af0-b513-9d4ce5f7176e",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "quick-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"type\": \"<string>\",\n  \"text\": \"<string>\",\n  \"domain\": \"<string>\",\n  \"domains\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"name\": \"<string>\",\n  \"job_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"job_sub_function\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"management_level\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"titles\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"title_search_mode\": \"<string>\",\n  \"cities\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"states\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"countries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"regions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"location_target\": \"<string>\",\n  \"business_types\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"industries\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"sic_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"naics_codes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"employees\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"revenues\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"exclude_eu\": \"<boolean>\",\n  \"exclusion_list_names\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"count_only\": \"<boolean>\",\n  \"page\": 1,\n  \"per_page\": 25\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8187\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.uplead.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1361bc12-eeb3-4f4b-8639-479a01b5e065",
+    "name": "UpLead Account Search API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.\n\nContact Support:\n Name: UpLead Support",
+      "type": "text/plain"
+    }
+  }
+}

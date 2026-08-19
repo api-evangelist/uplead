@@ -1,0 +1,165 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the OpenAPI definitions in openapi/ and the published
+  documentation at https://docs.uplead.com/, plus live probes of the
+  /.well-known/ surface recorded in well-known/uplead-well-known.yml.
+name: UpLead standards conformance
+description: >-
+  Which cross-cutting and industry standards the UpLead v2 API conforms to.
+  UpLead is a single-tenant B2B contact-data REST API with bare API-key auth; it
+  asserts no industry standard and implements none of the identity, error or
+  discovery RFCs. The one regime that genuinely applies to a contact-data broker
+  is privacy law, and there UpLead does publish a real posture.
+
+standards:
+  - id: openapi
+    conforms: false
+    evidence: >-
+      UpLead publishes no OpenAPI. The definitions in openapi/ were authored by
+      API Evangelist from the public documentation at docs.uplead.com; probes of
+      /openapi.json, /openapi.yaml, /swagger.json, /v1/openapi.json, /api-docs
+      and /docs on api.uplead.com all returned 404, and the same paths on
+      docs.uplead.com returned 404.
+  - id: rest
+    conforms: true
+    evidence: >-
+      Resource-oriented HTTPS/JSON endpoints under https://api.uplead.com/v2/
+      using GET/POST/DELETE with conventional HTTP status codes.
+  - id: json
+    conforms: true
+    evidence: All request bodies and responses are application/json.
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No OAuth. The single security scheme is an apiKey sent in the Authorization
+      header with no scheme prefix.
+  - id: oidc
+    conforms: false
+    evidence: /.well-known/openid-configuration returns 404 on api.uplead.com and 403 on www/docs.
+  - id: rfc6750-bearer
+    conforms: false
+    evidence: >-
+      The key is placed in the Authorization header but sent bare
+      ("Authorization: myapikey"), not as "Bearer <token>". This uses the RFC 7235
+      header without the RFC 6750 scheme.
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors use a proprietary {"error":{"type","message"}} envelope with
+      Content-Type application/json, not application/problem+json.
+  - id: rfc6585-429
+    conforms: true
+    evidence: 429 Too Many Requests is returned on rate-limit exhaustion.
+  - id: rfc7231-retry-after
+    conforms: true
+    evidence: Retry-After is documented as a response header on the 429.
+  - id: ratelimit-headers
+    conforms: partial
+    evidence: >-
+      X-RateLimit-Limit / X-RateLimit-Remaining / X-RateLimit-Reset are
+      documented — the de facto legacy convention, not the IETF RateLimit-*
+      draft header field names.
+  - id: rfc8594-sunset
+    conforms: false
+    evidence: No Sunset or Deprecation header and no deprecation policy is documented.
+  - id: rfc9116-security-txt
+    conforms: false
+    evidence: >-
+      /.well-known/security.txt returns 404 on api.uplead.com and 403 on
+      www.uplead.com and docs.uplead.com.
+  - id: rfc8615-well-known
+    conforms: false
+    evidence: No /.well-known/ document is served on any UpLead host.
+  - id: mcp
+    conforms: false
+    evidence: >-
+      No hosted or local MCP server is published by UpLead; no MCP endpoint
+      appears in the documentation, the Help Center or any package registry.
+  - id: a2a
+    conforms: false
+    evidence: >-
+      /.well-known/agent-card.json and /.well-known/agent.json miss on every host
+      (404 on api.uplead.com, 403 on www.uplead.com and docs.uplead.com).
+  - id: asyncapi
+    conforms: false
+    evidence: >-
+      Not applicable — UpLead publishes no webhooks, events or streaming surface,
+      so there is nothing for an AsyncAPI document to describe.
+  - id: graphql
+    conforms: false
+    evidence: No GraphQL endpoint is documented or reachable.
+  - id: grpc
+    conforms: false
+    evidence: No .proto definitions published.
+  - id: json-api
+    conforms: false
+    evidence: >-
+      Responses use a proprietary {"data":..., "userInfo":...} envelope, not the
+      JSON:API media type or document structure.
+  - id: odata
+    conforms: false
+  - id: scim2
+    conforms: false
+  - id: fhir-r4
+    conforms: false
+  - id: fapi
+    conforms: false
+  - id: psd2
+    conforms: false
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Page-number pagination with page/per_page request parameters and a
+      data.meta block carrying total, page, next_page, previous_page, first_page
+      and last_page.
+  - id: idempotency
+    conforms: false
+    evidence: >-
+      No idempotency key, no replay window, and no Idempotency-Key parameter in
+      any operation.
+  - id: gdpr
+    conforms: claimed
+    evidence: >-
+      The privacy policy at https://www.uplead.com/privacy/ sets out the GDPR
+      legal bases UpLead relies on for processing, and the company publishes
+      Standard Contractual Clauses
+      (https://www.uplead.com/standard-contractual-clauses/), an opt-out request
+      route (https://www.uplead.com/opt-out-request/) and a data deletion route
+      (https://www.uplead.com/delete-my-information/). The API also exposes an
+      exclude_eu filter on its prospector and preview endpoints. This is a stated
+      posture, not an audited certification.
+  - id: ccpa
+    conforms: claimed
+    evidence: >-
+      A California-resident notice supplementing the privacy policy is published
+      at https://www.uplead.com/ccpa/, with opt-out and deletion routes.
+  - id: soc2
+    conforms: false
+    evidence: >-
+      No SOC 2 report, attestation or trust center is published. trust.uplead.com
+      does not resolve and /security returns 404.
+  - id: iso-27001
+    conforms: false
+    evidence: Not published anywhere on the UpLead site.
+  - id: pci-dss
+    conforms: false
+    evidence: >-
+      UpLead states it uses "PCI-compliant third-party processors" for payment
+      processing; it makes no PCI claim about its own API surface, which handles
+      no card data.
+  - id: hipaa
+    conforms: false
+  - id: fedramp
+    conforms: false
+
+summary:
+  conforms: [rest, json, rfc6585-429, rfc7231-retry-after, pagination]
+  partial: [ratelimit-headers]
+  claimed_not_certified: [gdpr, ccpa]
+  not_applicable: [asyncapi, fhir-r4, psd2, fapi, scim2, odata]
+  note: >-
+    No Compliance pointer is emitted. UpLead publishes privacy-law notices and
+    contractual clauses, which the PrivacyPolicy and TermsOfService pointers
+    already carry, but no certification, audit report or trust center — the
+    evidence a compliance-program claim requires.

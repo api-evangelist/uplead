@@ -1,0 +1,225 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.uplead.com/
+derived_from:
+  - openapi/uplead-person-api-openapi.yml
+  - openapi/uplead-prospector-api-openapi.yml
+  - openapi/uplead-lists-api-openapi.yml
+name: UpLead API conventions
+description: >-
+  Cross-cutting request/response semantics for the UpLead v2 REST API, read from
+  the published documentation at docs.uplead.com and cross-checked against the
+  OpenAPI definitions in this repository.
+
+base_url: https://api.uplead.com/v2/
+
+authentication:
+  style: api-key
+  location: header
+  parameter: Authorization
+  scheme: none
+  value_form: the raw API key, sent with no "Bearer" or other prefix
+  docs: https://docs.uplead.com/#authentication
+  note: >-
+    "Authorization: myapikey" — the key is sent bare in the Authorization header,
+    not as a Bearer credential. Required on every call. Keys are issued from
+    account settings; a key can also be requested through the form linked from
+    https://www.uplead.com/data-api/.
+  see_also: authentication/uplead-authentication.yml
+
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    UpLead documents no idempotency key, no request replay window, and no
+    idempotent-retry contract. Writes are limited to list create/delete and
+    contact add/remove; nothing in the documentation or in the OpenAPI declares
+    an Idempotency-Key parameter. No Idempotency pointer is emitted.
+
+method_duality:
+  supported: true
+  note: >-
+    Most search endpoints accept both GET (query-string parameters) and POST (a
+    JSON body carrying the same parameters). The documentation publishes both
+    forms for company-search, person-search, combined-search, prospector-search,
+    prospector-pro-search, company-name-to-domain, quick-search, industries and
+    credits. Array-valued filters use the PHP-style repeated bracket form on GET
+    (job_functions[]=finance) and a real JSON array on POST.
+
+pagination:
+  style: page-number
+  request_params:
+    - name: page
+      description: Which results page to show
+      default: 1
+    - name: per_page
+      description: Number of results returned
+      defaults:
+        prospector-search: 25
+        lists: 15
+        lists-contacts: 15
+      max: 100
+    - name: num_results
+      description: >-
+        Used by the reseller-only prospector-preview endpoint instead of
+        per_page; value between 1 and 500, default 100.
+  response_envelope: data.meta
+  response_fields:
+    - name: total
+      description: Total number of records found
+    - name: page
+      description: Number of the current page
+    - name: next_page
+      description: Number of the next page to retrieve
+    - name: previous_page
+      description: Number of the previous page to retrieve
+    - name: first_page
+      description: Boolean, whether the current page is the first
+    - name: last_page
+      description: Boolean, whether the current page is the last
+  note: >-
+    Single-record lookups (company-search, person-search, combined-search,
+    company-name-to-domain) return a bare data object with no meta block.
+
+response_envelope:
+  success:
+    shape: '{ "data": ..., "userInfo": { "availableCredits": <int> } }'
+    data: >-
+      Either a single record object, or an object carrying results[] plus a meta
+      pagination block for collection endpoints.
+    userInfo:
+      availableCredits: integer, the caller's remaining credit balance
+    note: >-
+      Every credit-consuming response carries the running credit balance inline,
+      so an agent can track spend without a second call to /credits. DELETE of a
+      list returns "data": null.
+  error:
+    shape: '{ "error": { "type": "<slug>", "message": "<human message>" } }'
+    format: proprietary
+    rfc9457: false
+    example_type: rate_limit
+    see_also: errors/uplead-problem-types.yml
+
+count_only:
+  supported: true
+  param: count_only
+  applies_to: [prospectorSearch, prospectorProSearch, quickSearch, prospector-preview]
+  response: '{ "data": { "count": <int> } }'
+  note: >-
+    A boolean parameter that swaps the result set for a bare count. This is the
+    cheap "how big is this segment" call and the recommended first step before a
+    credit-consuming search.
+
+filtering:
+  singular_and_plural: >-
+    Most filters exist in a singular string form and a plural array form
+    (domain/domains, city/cities, state/states, country/countries, title/titles,
+    industry/industries). The Pro and Quick Search endpoints prefer the plural
+    array forms.
+  title_search_mode:
+    values: [include, exact]
+    default: exact
+    note: '"include" needs at least three characters; "exact" matches the whole value.'
+  location_target:
+    values: [contact, company]
+    default: company
+  exclusion_lists:
+    param: exclusion_list_names
+    note: Suppression lists must be uploaded in the application before they can be named in a query.
+  regions:
+    values: [AMER, APAC, EMEA, LATAM]
+  exclude_eu:
+    param: exclude_eu
+    default: false
+    note: Excludes EU contacts from results — a consent/regulatory control exposed as a query filter.
+
+field_expansion:
+  supported: false
+  note: >-
+    There is no sparse-fieldset or expand parameter. Shape is chosen by endpoint
+    instead: person-search returns a person, combined-search and
+    prospector-pro-search nest the full company object under company, and
+    prospector-search returns the flattened person with company_name/domain only.
+
+metadata:
+  custom_metadata: false
+  note: No user-defined metadata fields; the only mutable user-owned objects are lists and their membership.
+
+request_tracing:
+  request_id_header: null
+  note: UpLead documents no request-id or correlation header on responses.
+
+versioning:
+  scheme: uri-path
+  current: v2
+  base: https://api.uplead.com/v2/
+  docs: https://docs.uplead.com/#introduction
+  note: >-
+    The version is carried in the path. No version header, no date-pinned
+    versions, and no documented policy for how v3 would be introduced.
+  see_also: lifecycle/uplead-lifecycle.yml
+
+rate_limiting:
+  limit: 500 requests per minute
+  scope: per API key
+  status_on_exhaustion: 429
+  response_headers:
+    - X-RateLimit-Limit
+    - X-RateLimit-Remaining
+    - X-RateLimit-Reset
+    - Retry-After
+  see_also: rate-limits/uplead-rate-limits.yml
+
+billing_semantics:
+  model: credits
+  unit: one credit per contact or company record returned
+  charged_when:
+    - a company record is returned
+    - a contact record whose email_status is "valid"
+    - a contact record whose email_status is "accept_all"
+  not_charged_when:
+    - the query returns no results
+    - a contact record whose email_status is "invalid"
+    - a contact record whose email_status is "unknown"
+    - the same contact or company record is returned a second time
+  balance_field: data.userInfo.availableCredits
+  balance_endpoint: getCredits
+  docs: https://docs.uplead.com/#billing
+  note: >-
+    This is the single most important convention for an agent driving this API:
+    the cost of a call is not knowable in advance from the request, only from the
+    email_status of what comes back. Use count_only to size a query, then read
+    availableCredits off every response to track spend.
+  see_also: finops/uplead-finops.yml
+
+email_verification:
+  field: email_status
+  values:
+    valid: The email represents a real account/inbox available at the given domain.
+    invalid: Not a real email.
+    unknown: The email could not be verified either way, usually a slow domain.
+    accept_all: Domains that answer every verification affirmatively and cannot be fully verified.
+  docs: https://docs.uplead.com/#email-verification
+
+plan_gating:
+  note: >-
+    Several endpoints are plan-gated rather than key-gated, and the documentation
+    says so per endpoint. Prospector Pro, Quick Search, Industries and Lists are
+    "available on the Professional, Elite, and Enterprise plans only"; the
+    prospector-preview endpoint is "only for resellers". A 403 therefore does not
+    always mean a bad key — it can mean the account's plan does not carry the
+    endpoint.
+  see_also: plans/uplead-plans-pricing.yml
+
+known_gaps:
+  - id: prospector-preview-not-in-spec
+    detail: >-
+      The documented reseller-only Preview API (GET/POST
+      https://api.uplead.com/v2/prospector-preview) has no operation in the
+      OpenAPI definitions in this repository. Recorded here rather than invented
+      into the spec.
+  - id: no-webhooks
+    detail: >-
+      UpLead documents no webhooks, no event stream and no callbacks. Event-driven
+      delivery is available only indirectly through the Zapier app, which polls.
+      No AsyncAPI or Webhooks artifact is emitted.

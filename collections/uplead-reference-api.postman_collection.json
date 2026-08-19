@@ -1,0 +1,186 @@
+{
+  "item": [
+    {
+      "id": "bc7b1395-bceb-48bd-bb11-f0953e6e2ddd",
+      "name": "Reference",
+      "description": {
+        "content": "Reference data lookups.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "92ec8d5c-52b6-44c8-bdbf-5e8248f9d0aa",
+          "name": "Search the industry database",
+          "request": {
+            "name": "Search the industry database",
+            "description": {
+              "content": "Returns industry records matching an optional text query, for use as filter values in prospector searches.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "industries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "text",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "00aef9c3-efe1-4b62-8566-e5c4084938fc",
+              "name": "Successful industry search.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"results\": [\n    {\n      \"id\": \"string\",\n      \"industry_name\": \"string\"\n    },\n    {\n      \"id\": \"string\",\n      \"industry_name\": \"string\"\n    }\n  ],\n  \"total\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "85bb45de-1901-4fd9-9730-e32437425f8b",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "industries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "text",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8894\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.uplead.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "550259fb-466c-4ded-b878-09ea30b27995",
+    "name": "UpLead Account Reference API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.\n\nContact Support:\n Name: UpLead Support",
+      "type": "text/plain"
+    }
+  }
+}

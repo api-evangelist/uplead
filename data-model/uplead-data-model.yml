@@ -1,0 +1,210 @@
+generated: '2026-08-13'
+method: derived
+source: >-
+  Derived from the component schemas and operation shapes in openapi/, enriched
+  from the attribute reference published at https://docs.uplead.com/.
+name: UpLead data model
+description: >-
+  Entity-relationship graph for the UpLead v2 API. The model is small and flat:
+  two data entities that UpLead owns and sells (Company, Person), one reference
+  entity (Industry), and one user-owned entity (List) whose only job is to hold
+  a set of Person ids. Every relationship is expressed by an id or a domain
+  string; there are no hyperlinks and no $ref-linked sub-resources beyond the
+  company object nested inside the combined person shape.
+
+id_convention:
+  format: uuid-v4
+  prefixed: false
+  example: d98e157e-c31d-40a0-9d98-b2fb8390797d
+  note: >-
+    Person, Company and List all use bare UUIDs with no type prefix, so an id
+    alone does not tell an agent which entity it addresses. Industry is the
+    exception — it uses short numeric string ids ("91", "93").
+
+entities:
+  - name: Company
+    schema: CompanyRecord
+    sources:
+      - openapi/uplead-company-api-openapi.yml
+      - openapi/uplead-combined-api-openapi.yml
+      - openapi/uplead-prospector-api-openapi.yml
+    identity: [id, domain, company_name]
+    natural_key: domain
+    field_count: 32
+    field_groups:
+      identity: [id, company_name, domain, logo]
+      location: [address, city, state, zip, county, country]
+      contact: [phone_number, fax_number]
+      firmographics: [employees, revenue, year_founded, type, description]
+      classification: [industry, sic_code, sic_description, naics_code, naics_description]
+      public_markets: [ticker, exchange]
+      social: [linkedin_url, twitter_url, facebook_url, youtube_url, crunchbase_url, yelp_url, instagram_url]
+      traffic: [alexa_rank]
+    enumerations:
+      employees: ['1-10', '11-50', '51-200', '201-500', '501-1000', '1001-5000', '5001-10000', '10001+']
+      revenue: ['0-1m', '1m-10m', '10m-50m', '50m-100m', '100m-200m', '200m-1b', '1b+']
+      type: [private, public, education, government, non-profit]
+    operations: [companySearchGet, companySearchPost, companyNameToDomainGet, companyNameToDomainPost]
+    billable: true
+
+  - name: Person
+    schema: PersonRecord
+    sources:
+      - openapi/uplead-person-api-openapi.yml
+      - openapi/uplead-prospector-api-openapi.yml
+      - openapi/uplead-lists-api-openapi.yml
+    identity: [id, email]
+    natural_key: email
+    field_count: 20
+    field_groups:
+      identity: [id, first_name, last_name, gender]
+      employment: [title, job_function, job_sub_function, management_level]
+      contact: [email, email_status, phone_number, mobile_directdial]
+      location: [city, state, county, country]
+      social: [linkedin_url]
+      employer: [domain, company_name, industry]
+    enumerations:
+      management_level: [M, D, VP, C, CX]
+      email_status: [valid, invalid, unknown, accept_all]
+    operations: [personSearchGet, personSearchPost, prospectorSearch, getListContacts]
+    billable: true
+    note: >-
+      email_status is the billing discriminator, not just a data-quality flag —
+      only "valid" and "accept_all" consume a credit. See
+      conventions/uplead-conventions.yml#billing_semantics.
+
+  - name: CombinedPersonRecord
+    schema: CombinedPersonRecord
+    sources:
+      - openapi/uplead-combined-api-openapi.yml
+      - openapi/uplead-prospector-api-openapi.yml
+    identity: [id]
+    operations: [combinedSearchGet, combinedSearchPost, prospectorProSearch, quickSearch]
+    note: >-
+      A Person with the full Company object nested under a "company" property
+      rather than flattened to domain/company_name. This is the only place the
+      model composes rather than references.
+
+  - name: Industry
+    schema: IndustryRecord
+    sources: [openapi/uplead-reference-api-openapi.yml]
+    identity: [id]
+    fields: [id, industry_name]
+    operations: [searchIndustriesGet]
+    billable: false
+    reference_data: true
+    note: >-
+      Reference vocabulary used to populate the industries / industries_ids
+      filters on the Pro and Quick Search endpoints. Plan-gated to
+      Professional/Elite/Enterprise.
+
+  - name: List
+    schema: ListRecord
+    sources: [openapi/uplead-lists-api-openapi.yml]
+    identity: [id]
+    fields: [id, name, contacts_count]
+    operations: [getLists, createList, getList, deleteList, getListContacts, addContactsToList, deleteContactsFromList]
+    owner: customer
+    billable: false
+    note: >-
+      The only writable entity in the API. Membership is manipulated by contact
+      id through the /add and /delete sub-resources; there is no PUT/PATCH on the
+      list itself and no rename operation.
+
+  - name: PaginationMeta
+    schema: PaginationMeta
+    kind: envelope
+    fields: [total, page, next_page, previous_page, first_page, last_page]
+
+  - name: ErrorResponse
+    schema: ErrorResponse
+    kind: envelope
+    fields: [error, status]
+    see_also: errors/uplead-problem-types.yml
+
+relationships:
+  - from: Person
+    to: Company
+    kind: belongs_to
+    via: domain
+    cardinality: many-to-one
+    binding: string
+    note: >-
+      A flattened PersonRecord carries the employer's domain and company_name but
+      NOT the employer's company id. Joining a prospector result to a Company
+      record therefore costs a second, credit-consuming company-search call keyed
+      on domain.
+  - from: CombinedPersonRecord
+    to: Company
+    kind: has_one
+    via: company
+    cardinality: one-to-one
+    binding: embedded object
+    note: The company is embedded whole; no second call is needed.
+  - from: Company
+    to: Person
+    kind: has_many
+    via: prospectorSearch(domain)
+    cardinality: one-to-many
+    binding: query
+    note: >-
+      Not a field on Company. The relation is only reachable by searching
+      prospector-search with the company's domain.
+  - from: List
+    to: Person
+    kind: has_many
+    via: contact_ids
+    cardinality: many-to-many
+    binding: id array
+    operations: [addContactsToList, deleteContactsFromList, getListContacts]
+  - from: Person
+    to: Industry
+    kind: belongs_to
+    via: industry
+    cardinality: many-to-one
+    binding: string name
+    note: >-
+      Carried as a display name on the record, but filtered by numeric id
+      (industries_ids) on the Pro endpoints — the two do not share a key, so an
+      Industry lookup is needed to bridge them.
+  - from: Company
+    to: Industry
+    kind: belongs_to
+    via: industry
+    cardinality: many-to-one
+    binding: string name
+  - from: Company
+    to: Company
+    kind: has_one
+    via: logo
+    cardinality: one-to-one
+    binding: url
+    note: >-
+      The logo field is an absolute URL on the separate logo.uplead.com host,
+      served by getCompanyLogo. Free to fetch, attribution required.
+
+classification_systems:
+  - name: SIC
+    fields: [sic_code, sic_description]
+    filter: sic_codes
+  - name: NAICS
+    fields: [naics_code, naics_description]
+    filter: naics_codes
+  - name: UpLead industries
+    fields: [industry]
+    filter: [industries, industries_ids]
+    reference_operation: searchIndustriesGet
+
+gaps:
+  - >-
+    No company id on the flattened PersonRecord — the most consequential modelling
+    gap in the API, because it forces a paid re-lookup to walk person -> company.
+  - >-
+    CombinedPersonRecord is declared with no properties in the OpenAPI; its shape
+    is only described in prose and examples in the documentation.
+  - >-
+    No timestamps anywhere. No created_at, updated_at, or last_verified on any
+    record, so an agent cannot tell how fresh a contact or company row is.
+  - >-
+    Industry ids are strings of digits ("91"), Person/Company/List ids are UUIDs;
+    no type prefix distinguishes any of them.

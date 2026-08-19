@@ -1,0 +1,59 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  Registry searches of npm (registry.npmjs.org), PyPI, RubyGems and the UpLead
+  developer surface (https://docs.uplead.com/, https://www.uplead.com/data-api/).
+name: UpLead Packages and Client Libraries
+description: >-
+  UpLead publishes no first-party client libraries. The API documentation at
+  docs.uplead.com shows raw curl only, and the API product page at
+  www.uplead.com/data-api/ names no SDK, client library or package. Registry
+  searches on npm, PyPI and RubyGems return no UpLead-authored package. The only
+  packages that wrap the UpLead API are third-party integration components.
+official_package_count: 0
+package_count: 1
+packages:
+  - language: javascript
+    registry: npm
+    name: "@pipedream/uplead"
+    url: https://www.npmjs.com/package/@pipedream/uplead
+    install: npm install @pipedream/uplead
+    official: false
+    publisher: Pipedream
+    version: 0.1.0
+    published: '2023-11-13'
+    note: >-
+      Third-party Pipedream workflow components for UpLead, not an UpLead client
+      library and not published by UpLead. Last release 2023-11-13, more than two
+      years before this probe.
+registries_checked:
+  - registry: npm
+    query: https://registry.npmjs.org/-/v1/search?text=uplead
+    first_party_hits: 0
+    note: >-
+      Three results, none authored by UpLead (@pikku/addon-uplead,
+      @pipedream/uplead, an unrelated resume package).
+  - registry: pypi
+    query: https://pypi.org/pypi/uplead/json
+    status: 404
+    first_party_hits: 0
+  - registry: rubygems
+    query: https://rubygems.org/api/v1/search.json?query=uplead
+    first_party_hits: 0
+  - registry: github
+    query: https://api.github.com/users/uplead
+    first_party_hits: 0
+    note: >-
+      A GitHub organization named "Uplead" exists (created 2021-02-16) but has
+      zero public repositories and carries no company/website metadata tying it
+      to this provider, so it is not recorded as the provider's GitHub org.
+  - registry: maven-central
+    first_party_hits: 0
+  - registry: nuget
+    first_party_hits: 0
+  - registry: packagist
+    first_party_hits: 0
+  - registry: crates.io
+    first_party_hits: 0
+  - registry: pkg.go.dev
+    first_party_hits: 0

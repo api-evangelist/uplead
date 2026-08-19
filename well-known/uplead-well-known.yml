@@ -1,0 +1,72 @@
+generated: '2026-08-13'
+method: probed
+source: live HTTPS probes of the UpLead API, docs and website hosts
+name: UpLead .well-known discovery probe
+description: >-
+  Probe of the RFC 8615 /.well-known/ discovery surface on every host UpLead
+  serves: the API host from the OpenAPI servers[] block and apis.yml baseURL,
+  the documentation host, and the marketing website. No document was returned on
+  any host. The API host answers 404 with an HTML error page for every path; the
+  website and documentation hosts are fronted by an edge that returns 403
+  Forbidden for the entire /.well-known/ prefix, so nothing is served there
+  either. No WellKnown or SecurityTxt pointer is emitted — this file records a
+  measured absence, not a surface.
+result: no-documents-found
+documents_found: 0
+hosts:
+  - host: https://api.uplead.com
+    role: api
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+  - host: https://docs.uplead.com
+    role: documentation
+    note: every /.well-known/ path returns 403 Forbidden from the edge, not a document
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+  - host: https://www.uplead.com
+    role: website
+    note: every /.well-known/ path returns 403 Forbidden from the edge, not a document
+    documents:
+      - path: /.well-known/security.txt
+        status: 403
+      - path: /.well-known/openid-configuration
+        status: 403
+      - path: /.well-known/oauth-authorization-server
+        status: 403
+      - path: /.well-known/api-catalog
+        status: 403
+      - path: /.well-known/ai-plugin.json
+        status: 403
+      - path: /.well-known/agent-card.json
+        status: 403
+      - path: /.well-known/agent.json
+        status: 403
+x-evidence:
+  fetched: '2026-08-13'
+  method: HTTPS GET, redirects followed

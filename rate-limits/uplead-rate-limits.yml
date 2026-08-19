@@ -1,6 +1,21 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.uplead.com/#rate-limit
 name: UpLead Rate Limits
-description: API rate limits and throttling policies for the UpLead API
-url: https://docs.uplead.com/
+description: >-
+  API rate limits and throttling for the UpLead v2 API, read verbatim from the
+  published Rate Limit section of the documentation. UpLead publishes one limit —
+  500 requests per minute per API key — and returns the full legacy
+  X-RateLimit-* header trio plus Retry-After on the 429, so the runtime signal an
+  agent needs is available on every response, not just at exhaustion. Note that
+  the request-rate limit is NOT the binding constraint on this API: credit
+  consumption is, and that is recorded in plans/uplead-plans-pricing.yml and
+  finops/uplead-finops.yml.
+url: https://docs.uplead.com/#rate-limit
+limit_count: 1
+sample_429_body: >-
+  {"error":{"type":"rate_limit","message":"Rate limit exceeded. Limit is 500
+  requests per minute. Rate limit will be reset in 50 seconds."}}
 limits:
   - name: Standard Rate Limit
     description: Maximum number of API requests allowed per minute

@@ -1,0 +1,44 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Reference API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reference",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search the industry database",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/industries",
+            "params": [
+              {
+                "name": "text",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns industry records matching an optional text query, for use as filter values in prospector searches."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

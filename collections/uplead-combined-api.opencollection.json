@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Combined API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Combined",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Combined person and company lookup by email",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.uplead.com/v2/combined-search",
+            "params": [
+              {
+                "name": "email",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns person data plus nested company data in a single call. Requires email."
+        },
+        {
+          "info": {
+            "name": "Combined person and company lookup (POST)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/combined-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Combined person and company lookup (POST)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

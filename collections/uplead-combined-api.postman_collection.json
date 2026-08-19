@@ -1,0 +1,631 @@
+{
+  "item": [
+    {
+      "id": "881f54e0-d511-4476-88a5-fa89b84f264a",
+      "name": "Combined",
+      "description": {
+        "content": "Combined person and company lookup.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "b579edbe-e8c2-495e-b21c-6d1412436249",
+          "name": "Combined person and company lookup by email",
+          "request": {
+            "name": "Combined person and company lookup by email",
+            "description": {
+              "content": "Returns person data plus nested company data in a single call. Requires email.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "combined-search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "email",
+                  "value": "<email>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2a3daf27-973b-44bb-a5ab-a0249b526317",
+              "name": "Successful combined lookup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"title\": \"string\",\n    \"job_function\": \"trade\",\n    \"job_sub_function\": \"string\",\n    \"management_level\": \"M\",\n    \"gender\": \"string\",\n    \"email\": \"QPSuK@klQIsanNFwdiWrcQajsgfqoMWXslCOzYA.eyl\",\n    \"email_status\": \"unknown\",\n    \"phone_number\": \"string\",\n    \"mobile_directdial\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"county\": \"string\",\n    \"country\": \"string\",\n    \"linkedin_url\": \"http://hFJvHbSMHDQocMKLQvVRfCQdtS.jbxJWaW\",\n    \"industry\": \"string\",\n    \"domain\": \"string\",\n    \"company_name\": \"string\",\n    \"company\": {\n      \"id\": \"string\",\n      \"company_name\": \"string\",\n      \"domain\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"county\": \"string\",\n      \"country\": \"string\",\n      \"phone_number\": \"string\",\n      \"fax_number\": \"string\",\n      \"employees\": \"5001-10000\",\n      \"revenue\": \"1m-10m\",\n      \"industry\": \"string\",\n      \"sic_code\": 5620,\n      \"sic_description\": \"string\",\n      \"naics_code\": 583,\n      \"naics_description\": \"string\",\n      \"description\": \"string\",\n      \"year_founded\": 7817,\n      \"logo\": \"http://iyZHTCbwnTakeWlc.oaIRlbQkEeXTrZEKCEw9mlo-pjZviCjGSliFvDH\",\n      \"linkedin_url\": \"https://JyZAQlqWu.vvBs3KRr7qb-zql3j8RygVdN63DoxQ\",\n      \"twitter_url\": \"http://f.owqPdltgfVW3yC+TXaI\",\n      \"facebook_url\": \"http://TvWgpXIjvzpjEolGfcTVJ.hicvAuhJSaqNhiV5mDG1IWK7pzYEDHWyZzfo\",\n      \"youtube_url\": \"https://DjFNItjprqRfRGlkeGbXMFBMp.ubovLaj\",\n      \"crunchbase_url\": \"http://rmaqSfIrjmAbMXtXXkNUltzfwAlWYXM.cjmtor5R.AO3HWxDeuWeLrku-Nh2KC\",\n      \"yelp_url\": \"http://aoj.gfqkr,xG3SKsIwOGQHeCLo7M\",\n      \"instagram_url\": \"http://URlfRrgMNIwywhmzEfGcPU.mdbmRgAnjrwf-MqHb6mn-g9ZQhJioUfX2x5nyZRc3YgaCoWiRWY734.\",\n      \"type\": \"government\",\n      \"ticker\": \"string\",\n      \"exchange\": \"string\",\n      \"alexa_rank\": 1938\n    }\n  },\n  \"availableCredits\": 2919\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "314c330f-9068-4b7f-8134-e3220d1a0d01",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ed423967-fc4e-407d-b2a9-de8d2bc18a83",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "abbd9789-f368-4327-b720-e0d6797a00a6",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "92459edb-84ad-49cf-824b-6a926ba76547",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "email",
+                      "value": "<email>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5ae906da-bee3-4478-9585-749b907d09bd",
+          "name": "Combined person and company lookup (POST)",
+          "request": {
+            "name": "Combined person and company lookup (POST)",
+            "description": {},
+            "url": {
+              "path": [
+                "combined-search"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"<email>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "acbfe677-305a-4c8b-bb88-8389dd13cb8e",
+              "name": "Successful combined lookup.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": {\n    \"id\": \"string\",\n    \"first_name\": \"string\",\n    \"last_name\": \"string\",\n    \"title\": \"string\",\n    \"job_function\": \"trade\",\n    \"job_sub_function\": \"string\",\n    \"management_level\": \"M\",\n    \"gender\": \"string\",\n    \"email\": \"QPSuK@klQIsanNFwdiWrcQajsgfqoMWXslCOzYA.eyl\",\n    \"email_status\": \"unknown\",\n    \"phone_number\": \"string\",\n    \"mobile_directdial\": \"string\",\n    \"city\": \"string\",\n    \"state\": \"string\",\n    \"county\": \"string\",\n    \"country\": \"string\",\n    \"linkedin_url\": \"http://hFJvHbSMHDQocMKLQvVRfCQdtS.jbxJWaW\",\n    \"industry\": \"string\",\n    \"domain\": \"string\",\n    \"company_name\": \"string\",\n    \"company\": {\n      \"id\": \"string\",\n      \"company_name\": \"string\",\n      \"domain\": \"string\",\n      \"address\": \"string\",\n      \"city\": \"string\",\n      \"state\": \"string\",\n      \"zip\": \"string\",\n      \"county\": \"string\",\n      \"country\": \"string\",\n      \"phone_number\": \"string\",\n      \"fax_number\": \"string\",\n      \"employees\": \"5001-10000\",\n      \"revenue\": \"1m-10m\",\n      \"industry\": \"string\",\n      \"sic_code\": 5620,\n      \"sic_description\": \"string\",\n      \"naics_code\": 583,\n      \"naics_description\": \"string\",\n      \"description\": \"string\",\n      \"year_founded\": 7817,\n      \"logo\": \"http://iyZHTCbwnTakeWlc.oaIRlbQkEeXTrZEKCEw9mlo-pjZviCjGSliFvDH\",\n      \"linkedin_url\": \"https://JyZAQlqWu.vvBs3KRr7qb-zql3j8RygVdN63DoxQ\",\n      \"twitter_url\": \"http://f.owqPdltgfVW3yC+TXaI\",\n      \"facebook_url\": \"http://TvWgpXIjvzpjEolGfcTVJ.hicvAuhJSaqNhiV5mDG1IWK7pzYEDHWyZzfo\",\n      \"youtube_url\": \"https://DjFNItjprqRfRGlkeGbXMFBMp.ubovLaj\",\n      \"crunchbase_url\": \"http://rmaqSfIrjmAbMXtXXkNUltzfwAlWYXM.cjmtor5R.AO3HWxDeuWeLrku-Nh2KC\",\n      \"yelp_url\": \"http://aoj.gfqkr,xG3SKsIwOGQHeCLo7M\",\n      \"instagram_url\": \"http://URlfRrgMNIwywhmzEfGcPU.mdbmRgAnjrwf-MqHb6mn-g9ZQhJioUfX2x5nyZRc3YgaCoWiRWY734.\",\n      \"type\": \"government\",\n      \"ticker\": \"string\",\n      \"exchange\": \"string\",\n      \"alexa_rank\": 1938\n    }\n  },\n  \"availableCredits\": 2919\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c86d823-1f10-46e9-b6e0-409dd2e043f0",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f34d7f7-6039-454d-aa6a-6479156334b0",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bda29044-dfad-4023-8324-af0340537265",
+              "name": "Forbidden.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c5d2cc7-162e-4d12-a898-1532e48f05a4",
+              "name": "Rate limit exceeded.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "combined-search"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"<email>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Too Many Requests",
+              "code": 429,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"status\": 8370\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.uplead.com/v2",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "17b4c14f-ccae-4fb7-9842-abb85990ba73",
+    "name": "UpLead Account Combined API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.\n\nContact Support:\n Name: UpLead Support",
+      "type": "text/plain"
+    }
+  }
+}

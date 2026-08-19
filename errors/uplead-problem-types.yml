@@ -1,0 +1,165 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.uplead.com/#errors
+derived_from:
+  - openapi/uplead-account-api-openapi.yml
+  - openapi/uplead-combined-api-openapi.yml
+  - openapi/uplead-company-api-openapi.yml
+  - openapi/uplead-lists-api-openapi.yml
+  - openapi/uplead-person-api-openapi.yml
+  - openapi/uplead-prospector-api-openapi.yml
+  - openapi/uplead-reference-api-openapi.yml
+  - openapi/uplead-search-api-openapi.yml
+name: UpLead error catalog
+description: >-
+  Error surface for the UpLead v2 REST API. Titles and meanings are taken
+  verbatim from the published HTTP status-code table at docs.uplead.com#errors;
+  the per-operation mapping is derived from the 4xx/5xx responses declared in the
+  OpenAPI definitions in this repository.
+format: proprietary
+rfc9457: false
+envelope:
+  shape: '{ "error": { "type": "<slug>", "message": "<human message>" } }'
+  fields:
+    - name: error.type
+      description: >-
+        Short machine slug for the error class. Only one value is published in
+        the documentation ("rate_limit", shown in the 429 example); UpLead does
+        not publish the full type vocabulary, so no other slug is asserted here.
+    - name: error.message
+      description: Human-readable explanation, sometimes carrying the limit and reset window.
+  content_type: application/json
+  problem_json: false
+  note: >-
+    UpLead uses a proprietary single-error envelope, not RFC 9457
+    application/problem+json. There is no type URI, no instance, and no errors[]
+    array for field-level validation detail.
+
+problems:
+  - status: 400
+    title: Bad Request
+    meaning: Your parameters are invalid.
+    remediation: >-
+      Check the required-parameter rules for the endpoint. Most search endpoints
+      require at least one of a small set of identifiers (person-search wants
+      email, or id, or first_name + last_name + domain; company-search wants
+      domain, or company, or id) and reject a call that satisfies none of them.
+    source_operations:
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchGet
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchPost
+      - openapi/uplead-company-api-openapi.yml#companySearchGet
+      - openapi/uplead-company-api-openapi.yml#companySearchPost
+      - openapi/uplead-company-api-openapi.yml#companyNameToDomainGet
+      - openapi/uplead-company-api-openapi.yml#companyNameToDomainPost
+      - openapi/uplead-lists-api-openapi.yml#createList
+      - openapi/uplead-lists-api-openapi.yml#addContactsToList
+      - openapi/uplead-lists-api-openapi.yml#deleteContactsFromList
+      - openapi/uplead-person-api-openapi.yml#personSearchGet
+      - openapi/uplead-person-api-openapi.yml#personSearchPost
+      - openapi/uplead-prospector-api-openapi.yml#prospectorSearch
+      - openapi/uplead-prospector-api-openapi.yml#prospectorProSearch
+      - openapi/uplead-search-api-openapi.yml#quickSearch
+  - status: 401
+    title: Unauthorized
+    meaning: Your API key is wrong.
+    remediation: >-
+      Send the key bare in the Authorization header — "Authorization: myapikey",
+      with no Bearer prefix. The header is required on every call, including
+      /credits. Keys are found in account settings.
+    retryable: false
+    source_operations:
+      - openapi/uplead-account-api-openapi.yml#getCredits
+      - openapi/uplead-lists-api-openapi.yml#getLists
+      - openapi/uplead-lists-api-openapi.yml#createList
+      - openapi/uplead-lists-api-openapi.yml#getList
+      - openapi/uplead-lists-api-openapi.yml#deleteList
+      - openapi/uplead-lists-api-openapi.yml#getListContacts
+      - openapi/uplead-lists-api-openapi.yml#addContactsToList
+      - openapi/uplead-lists-api-openapi.yml#deleteContactsFromList
+      - openapi/uplead-reference-api-openapi.yml#searchIndustriesGet
+      - openapi/uplead-person-api-openapi.yml#personSearchGet
+      - openapi/uplead-company-api-openapi.yml#companySearchGet
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchGet
+      - openapi/uplead-prospector-api-openapi.yml#prospectorSearch
+      - openapi/uplead-search-api-openapi.yml#quickSearch
+  - status: 403
+    title: Forbidden
+    meaning: Your account is on pause or you don't have a subscription.
+    remediation: >-
+      Distinct from 401 — the key is good but the account cannot make this call.
+      Two causes: the subscription is paused or absent, or the endpoint is
+      plan-gated. Prospector Pro, Quick Search, Industries and Lists are
+      documented as Professional/Elite/Enterprise only, and prospector-preview is
+      reseller-only. Not retryable without a plan or billing change.
+    retryable: false
+    source_operations:
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchGet
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchPost
+      - openapi/uplead-company-api-openapi.yml#companySearchGet
+      - openapi/uplead-company-api-openapi.yml#companySearchPost
+      - openapi/uplead-person-api-openapi.yml#personSearchGet
+      - openapi/uplead-person-api-openapi.yml#personSearchPost
+      - openapi/uplead-prospector-api-openapi.yml#prospectorSearch
+      - openapi/uplead-prospector-api-openapi.yml#prospectorProSearch
+      - openapi/uplead-search-api-openapi.yml#quickSearch
+  - status: 404
+    title: Not Found
+    meaning: The addressed resource does not exist.
+    remediation: >-
+      Returned by the list operations for an unknown list_id, and by the Company
+      Logo API (logo.uplead.com/{domain}) when no logo is held for that domain.
+      Not part of the published status-code table; derived from the OpenAPI.
+    retryable: false
+    source_operations:
+      - openapi/uplead-company-api-openapi.yml#getCompanyLogo
+      - openapi/uplead-lists-api-openapi.yml#getList
+      - openapi/uplead-lists-api-openapi.yml#deleteList
+      - openapi/uplead-lists-api-openapi.yml#getListContacts
+      - openapi/uplead-lists-api-openapi.yml#addContactsToList
+      - openapi/uplead-lists-api-openapi.yml#deleteContactsFromList
+  - status: 429
+    type: rate_limit
+    title: Too Many Requests
+    meaning: You're making too many requests.
+    remediation: >-
+      The account exceeded 500 requests per minute on the API key. Read the
+      Retry-After header (seconds) and back off; X-RateLimit-Reset carries the
+      UTC epoch second at which the window resets. Safe to retry after the wait.
+    retryable: true
+    retry_after_header: Retry-After
+    example_body: >-
+      {"error":{"type":"rate_limit","message":"Rate limit exceeded. Limit is 500
+      requests per minute. Rate limit will be reset in 50 seconds."}}
+    source_operations:
+      - openapi/uplead-combined-api-openapi.yml#combinedSearchGet
+      - openapi/uplead-company-api-openapi.yml#companySearchGet
+      - openapi/uplead-person-api-openapi.yml#personSearchGet
+      - openapi/uplead-prospector-api-openapi.yml#prospectorSearch
+      - openapi/uplead-prospector-api-openapi.yml#prospectorProSearch
+      - openapi/uplead-search-api-openapi.yml#quickSearch
+  - status: 50X
+    title: Internal Server Error
+    meaning: We had a problem with our server. Try again later.
+    remediation: >-
+      Published as the class "50X" rather than discrete codes. Retry with backoff;
+      check https://status.uplead.com/ for a declared incident before escalating.
+    retryable: true
+
+non_error_conditions:
+  - condition: empty result set
+    status: 200
+    detail: >-
+      An unsuccessful lookup is not an error. The query returns 200 with an empty
+      or null data payload and no credit is deducted. Agents must test the data
+      payload, not just the status code.
+  - condition: unverifiable email
+    status: 200
+    detail: >-
+      A contact whose email_status is "unknown" or "invalid" is returned at 200
+      and is not billed. Only "valid" and "accept_all" consume a credit.
+
+gaps:
+  - No RFC 9457 problem+json representation.
+  - No published error-type vocabulary beyond the single "rate_limit" example.
+  - No field-level validation detail on 400 — the caller is told the parameters are invalid, not which one.
+  - No documented error codes for the Company Logo API beyond the 404.

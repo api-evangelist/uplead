@@ -1,0 +1,56 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "UpLead Account Prospector API",
+    "version": "2.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Prospector",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Search contacts within a company domain",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/prospector-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Paginated search to find contacts at a company by domain, with filters for job function, management level, title, and location."
+        },
+        {
+          "info": {
+            "name": "Advanced prospector search with company filters (Professional+ plans)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.uplead.com/v2/prospector-pro-search",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Expanded prospector search supporting multiple domains, industry, revenue, employee size, and business type filters. Returns person records with nested company data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

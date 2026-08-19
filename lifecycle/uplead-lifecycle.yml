@@ -1,0 +1,95 @@
+generated: '2026-08-13'
+method: searched
+source: https://docs.uplead.com/
+name: UpLead API lifecycle
+description: >-
+  Versioning, deprecation, availability and change-communication posture for the
+  UpLead v2 API, read from the published documentation, the Atlassian Statuspage
+  at status.uplead.com and the dated Release notes collection in the UpLead Help
+  Center.
+
+versioning:
+  scheme: uri-path
+  current: v2
+  base: https://api.uplead.com/v2/
+  docs: https://docs.uplead.com/#introduction
+  policy_url: null
+  note: >-
+    The major version sits in the path. UpLead publishes no version-support
+    policy, no statement of how long v2 is supported, and no description of how a
+    future version would be introduced or migrated to.
+
+deprecation:
+  policy_url: null
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  note: >-
+    No deprecation policy, no notice period, and no RFC 8594 Sunset/Deprecation
+    header support is documented anywhere on docs.uplead.com or in the Help
+    Center. No Deprecation pointer is emitted — recording an absence, not a policy.
+
+deprecated_operations: []
+
+status_page:
+  url: https://status.uplead.com/
+  provider: Atlassian Statuspage
+  http_status: 200
+  components:
+    - name: API (api.uplead.com)
+      uptime_90d: '99.94%'
+    - name: Management Portal (app.uplead.com)
+      uptime_90d: '99.94%'
+    - name: Marketing Site (uplead.com)
+      uptime_90d: '100.0%'
+    - name: Search API
+    - name: Authentication API
+    - name: Database
+    - name: DNS
+    - name: Files Storage
+    - name: Email Sending
+    - name: Braintree API
+    - name: Amazon AWS
+    - name: AWS Application Cluster
+    - name: Live Chat
+  subscribe:
+    email: true
+    slack: true
+    atom: https://status.uplead.com/history.atom
+    rss: https://status.uplead.com/history.rss
+  history: https://status.uplead.com/history
+  note: >-
+    A genuinely useful status page — the API host is broken out as its own
+    component with a published 90-day uptime figure, and machine-readable Atom
+    and RSS incident feeds are offered alongside email and Slack subscription.
+
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    No SLA or uptime commitment is published. The 99.94% figure on the status
+    page is observed history, not a contractual target.
+
+change_communication:
+  changelog: https://support.uplead.com/en/collections/19646601-release-notes
+  cadence: irregular, roughly monthly
+  api_coverage: >-
+    The Release notes are product/application release notes. Across the four most
+    recent issues read (2026-08-10, 2026-07-30, 2026-07-20, 2026-05-07) none
+    carried an API change. There is no API-specific changelog.
+  see_also: changelog/uplead-changelog.yml
+
+support:
+  help_center: https://support.uplead.com/
+  contact: https://www.uplead.com/contact-us/
+  api_key_request: https://www.uplead.com/data-api/
+
+plan_gating:
+  note: >-
+    Endpoint availability is tied to the account plan, and that is itself a
+    lifecycle fact: Prospector Pro, Quick Search, Industries and Lists are
+    Professional/Elite/Enterprise only, and prospector-preview is reseller-only.
+    An operation can therefore disappear from an account's reachable surface on a
+    downgrade without any API version changing.
+  see_also: plans/uplead-plans-pricing.yml

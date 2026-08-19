@@ -1,0 +1,158 @@
+generated: '2026-08-13'
+method: derived
+status: candidate
+source: >-
+  Derived from the OpenAPI operations in openapi/. Searched first for a published
+  UpLead MCP server: nothing in the documentation (https://docs.uplead.com/), the
+  API product page (https://www.uplead.com/data-api/), the Help Center
+  (https://support.uplead.com/), the npm registry, or the GitHub organization
+  (github.com/uplead, 0 public repositories). https://mcp.uplead.com/ does not
+  resolve and https://www.uplead.com/mcp/ returns 404.
+name: UpLead MCP (candidate)
+description: >-
+  UpLead ships no MCP server. This is a CANDIDATE tool surface derived by API
+  Evangelist from the twenty-one operations in the OpenAPI definitions in this
+  repository, so an agent builder can see what an UpLead MCP server would expose.
+  Nothing here is served by UpLead and no endpoint is asserted.
+
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    mode: none — UpLead publishes neither a remote MCP endpoint nor a local stdio
+    package. If a server were built against this candidate list, auth would be the
+    bare API key UpLead already requires in the Authorization header.
+
+server:
+  name: uplead
+  transport: null
+  url: null
+
+tools:
+  - name: get_credits
+    description: Get the remaining credit balance for the authenticated account.
+    source_operation: openapi/uplead-account-api-openapi.yml#getCredits
+    consequence: read
+  - name: search_company
+    description: Look up a company by domain, company name, or internal company id.
+    source_operation: openapi/uplead-company-api-openapi.yml#companySearchGet
+    consequence: read
+    billable: true
+  - name: search_company_post
+    description: Look up a company by domain, company name, or id using a JSON request body.
+    source_operation: openapi/uplead-company-api-openapi.yml#companySearchPost
+    consequence: read
+    billable: true
+  - name: company_name_to_domain
+    description: Convert a company name to its website domain and logo URL.
+    source_operation: openapi/uplead-company-api-openapi.yml#companyNameToDomainGet
+    consequence: read
+  - name: company_name_to_domain_post
+    description: Convert a company name to its domain and logo using a JSON request body.
+    source_operation: openapi/uplead-company-api-openapi.yml#companyNameToDomainPost
+    consequence: read
+  - name: get_company_logo
+    description: Fetch a company logo image by domain from the free logo host.
+    source_operation: openapi/uplead-company-api-openapi.yml#getCompanyLogo
+    consequence: read
+    note: Free, attribution to uplead.com required wherever the logo is displayed.
+  - name: search_person
+    description: Look up a person by email, by first name + last name + domain, or by id.
+    source_operation: openapi/uplead-person-api-openapi.yml#personSearchGet
+    consequence: read
+    billable: true
+  - name: search_person_post
+    description: Look up a person by email or name + domain using a JSON request body.
+    source_operation: openapi/uplead-person-api-openapi.yml#personSearchPost
+    consequence: read
+    billable: true
+  - name: search_combined
+    description: Look up a person and their company together from one business email address.
+    source_operation: openapi/uplead-combined-api-openapi.yml#combinedSearchGet
+    consequence: read
+    billable: true
+  - name: search_combined_post
+    description: Look up a person and their company together using a JSON request body.
+    source_operation: openapi/uplead-combined-api-openapi.yml#combinedSearchPost
+    consequence: read
+    billable: true
+  - name: prospector_search
+    description: >-
+      Find contacts at a company by job function, sub-function, management level,
+      title and location. Supports count_only for a free size estimate.
+    source_operation: openapi/uplead-prospector-api-openapi.yml#prospectorSearch
+    consequence: read
+    billable: true
+  - name: prospector_pro_search
+    description: >-
+      Full-fidelity prospecting across domains, industries, SIC/NAICS codes,
+      employee and revenue bands, regions and business types, returning contacts
+      with their company nested. Professional/Elite/Enterprise plans only.
+    source_operation: openapi/uplead-prospector-api-openapi.yml#prospectorProSearch
+    consequence: read
+    billable: true
+  - name: quick_search
+    description: >-
+      Free-text search across contacts or companies with the Pro filter set.
+      Professional/Elite/Enterprise plans only.
+    source_operation: openapi/uplead-search-api-openapi.yml#quickSearch
+    consequence: read
+    billable: true
+  - name: search_industries
+    description: >-
+      Look up UpLead industry ids by name, for use in the industries_ids filter.
+      Professional/Elite/Enterprise plans only.
+    source_operation: openapi/uplead-reference-api-openapi.yml#searchIndustriesGet
+    consequence: read
+  - name: list_lists
+    description: Get the account's saved contact lists, paginated.
+    source_operation: openapi/uplead-lists-api-openapi.yml#getLists
+    consequence: read
+  - name: create_list
+    description: Create a new named contact list.
+    source_operation: openapi/uplead-lists-api-openapi.yml#createList
+    consequence: write
+  - name: get_list
+    description: Retrieve a single contact list by id.
+    source_operation: openapi/uplead-lists-api-openapi.yml#getList
+    consequence: read
+  - name: delete_list
+    description: Delete a contact list by id.
+    source_operation: openapi/uplead-lists-api-openapi.yml#deleteList
+    consequence: write
+    destructive: true
+  - name: get_list_contacts
+    description: Retrieve the contacts in a list, paginated and text-filterable.
+    source_operation: openapi/uplead-lists-api-openapi.yml#getListContacts
+    consequence: read
+  - name: add_contacts_to_list
+    description: Add contacts to a list by contact id.
+    source_operation: openapi/uplead-lists-api-openapi.yml#addContactsToList
+    consequence: write
+  - name: delete_contacts_from_list
+    description: Remove contacts from a list by contact id.
+    source_operation: openapi/uplead-lists-api-openapi.yml#deleteContactsFromList
+    consequence: write
+    destructive: true
+
+agent_notes:
+  - >-
+    Every search tool spends money. One credit is deducted per company record and
+    per contact record whose email_status is "valid" or "accept_all". Call
+    prospector_search or quick_search with count_only=true first to size a query
+    for free, and read data.userInfo.availableCredits off every response.
+  - >-
+    There is no idempotency key. add_contacts_to_list and delete_contacts_from_list
+    must not be blindly retried on an ambiguous failure.
+  - >-
+    403 does not mean a bad key. Several tools are plan-gated to
+    Professional/Elite/Enterprise.
+
+coverage:
+  operations_in_openapi: 21
+  tools_derived: 21
+  operations_without_a_tool: 0
