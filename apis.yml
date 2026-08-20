@@ -83,6 +83,8 @@ apis:
   humanURL: https://docs.uplead.com/
   baseURL: https://api.uplead.com/v2/
   tags:
+  - List
+  tags_raw:
   - Lists
   properties:
   - type: OpenAPI
@@ -97,6 +99,8 @@ apis:
   humanURL: https://docs.uplead.com/
   baseURL: https://api.uplead.com/v2/
   tags:
+  - Persons
+  tags_raw:
   - Person
   properties:
   - type: OpenAPI
