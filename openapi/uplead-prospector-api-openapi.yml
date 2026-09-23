@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: UpLead Account Prospector API
+  title: UpLead Prospector API
   description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
   version: 2.0.0
   contact:
@@ -375,6 +375,124 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        next_page:
+          type:
+          - integer
+          - 'null'
+        previous_page:
+          type:
+          - integer
+          - 'null'
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    CombinedPersonRecord:
+      allOf:
+      - $ref: '#/components/schemas/PersonRecord'
+      - type: object
+        properties:
+          company:
+            $ref: '#/components/schemas/CompanyRecord'
+    PersonRecord:
+      type: object
+      description: Person/contact data record from UpLead's database.
+      properties:
+        id:
+          type: string
+          description: Internal UpLead person ID.
+        first_name:
+          type: string
+        last_name:
+          type: string
+        title:
+          type: string
+        job_function:
+          type: string
+          enum:
+          - advisory
+          - analyst
+          - creative
+          - education
+          - engineering
+          - finance
+          - fulfillment
+          - health
+          - hospitality
+          - human resources
+          - legal
+          - manufacturing
+          - marketing
+          - operations
+          - partnerships
+          - product
+          - professional service
+          - public service
+          - research
+          - sales
+          - sales engineering
+          - support
+          - trade
+          - unemployed
+        job_sub_function:
+          type: string
+        management_level:
+          type: string
+          enum:
+          - M
+          - D
+          - VP
+          - C
+          description: M=Manager, D=Director, VP=Vice President, C=C-Suite
+        gender:
+          type: string
+        email:
+          type: string
+          format: email
+        email_status:
+          type: string
+          enum:
+          - valid
+          - invalid
+          - accept_all
+          - unknown
+        phone_number:
+          type: string
+        mobile_directdial:
+          type: string
+        city:
+          type: string
+        state:
+          type: string
+        county:
+          type: string
+        country:
+          type: string
+        linkedin_url:
+          type: string
+          format: uri
+        industry:
+          type: string
+        domain:
+          type: string
+        company_name:
+          type: string
     CompanyRecord:
       type: object
       description: Company data record from UpLead's database.
@@ -475,122 +593,6 @@ components:
           type: string
         alexa_rank:
           type: integer
-    PaginationMeta:
-      type: object
-      properties:
-        total:
-          type: integer
-        page:
-          type: integer
-        next_page:
-          type: integer
-          nullable: true
-        previous_page:
-          type: integer
-          nullable: true
-        first_page:
-          type: boolean
-        last_page:
-          type: boolean
-    CombinedPersonRecord:
-      allOf:
-      - $ref: '#/components/schemas/PersonRecord'
-      - type: object
-        properties:
-          company:
-            $ref: '#/components/schemas/CompanyRecord'
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        status:
-          type: integer
-          description: HTTP status code.
-    PersonRecord:
-      type: object
-      description: Person/contact data record from UpLead's database.
-      properties:
-        id:
-          type: string
-          description: Internal UpLead person ID.
-        first_name:
-          type: string
-        last_name:
-          type: string
-        title:
-          type: string
-        job_function:
-          type: string
-          enum:
-          - advisory
-          - analyst
-          - creative
-          - education
-          - engineering
-          - finance
-          - fulfillment
-          - health
-          - hospitality
-          - human resources
-          - legal
-          - manufacturing
-          - marketing
-          - operations
-          - partnerships
-          - product
-          - professional service
-          - public service
-          - research
-          - sales
-          - sales engineering
-          - support
-          - trade
-          - unemployed
-        job_sub_function:
-          type: string
-        management_level:
-          type: string
-          enum:
-          - M
-          - D
-          - VP
-          - C
-          description: M=Manager, D=Director, VP=Vice President, C=C-Suite
-        gender:
-          type: string
-        email:
-          type: string
-          format: email
-        email_status:
-          type: string
-          enum:
-          - valid
-          - invalid
-          - accept_all
-          - unknown
-        phone_number:
-          type: string
-        mobile_directdial:
-          type: string
-        city:
-          type: string
-        state:
-          type: string
-        county:
-          type: string
-        country:
-          type: string
-        linkedin_url:
-          type: string
-          format: uri
-        industry:
-          type: string
-        domain:
-          type: string
-        company_name:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

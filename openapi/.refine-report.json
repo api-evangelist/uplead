@@ -1,14 +1,7 @@
 {
   "provider": "uplead",
   "sources": [
-    "uplead-account-api-openapi.yml",
-    "uplead-combined-api-openapi.yml",
-    "uplead-company-api-openapi.yml",
-    "uplead-lists-api-openapi.yml",
-    "uplead-person-api-openapi.yml",
-    "uplead-prospector-api-openapi.yml",
-    "uplead-reference-api-openapi.yml",
-    "uplead-search-api-openapi.yml"
+    "_original/uplead-openapi.json"
   ],
   "outputs": [
     "uplead-account-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "uplead-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "uplead-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-combined-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-lists-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-person-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-prospector-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-reference-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "uplead-search-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

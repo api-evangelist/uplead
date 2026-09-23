@@ -1,6 +1,6 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: UpLead Account Lists API
+  title: UpLead Lists API
   description: REST API for accessing UpLead's B2B contact and company database. Supports company search and enrichment, person search and enrichment, combined person-and-company lookup, prospector search for discovering contacts by title or function, email verification, credit balance checking, and list management.
   version: 2.0.0
   contact:
@@ -148,8 +148,9 @@ paths:
                 type: object
                 properties:
                   data:
-                    type: object
-                    nullable: true
+                    type:
+                    - object
+                    - 'null'
         '401':
           description: Unauthorized.
           content:
@@ -315,15 +316,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ListRecord:
+    PaginationMeta:
       type: object
       properties:
-        id:
-          type: string
-        name:
-          type: string
-        contacts_count:
+        total:
           type: integer
+        page:
+          type: integer
+        next_page:
+          type:
+          - integer
+          - 'null'
+        previous_page:
+          type:
+          - integer
+          - 'null'
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
     PersonRecord:
       type: object
       description: Person/contact data record from UpLead's database.
@@ -407,23 +418,6 @@ components:
           type: string
         company_name:
           type: string
-    PaginationMeta:
-      type: object
-      properties:
-        total:
-          type: integer
-        page:
-          type: integer
-        next_page:
-          type: integer
-          nullable: true
-        previous_page:
-          type: integer
-          nullable: true
-        first_page:
-          type: boolean
-        last_page:
-          type: boolean
     ErrorResponse:
       type: object
       properties:
@@ -433,6 +427,15 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    ListRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contacts_count:
+          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
