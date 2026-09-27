@@ -316,6 +316,24 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    ListRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contacts_count:
+          type: integer
     PaginationMeta:
       type: object
       properties:
@@ -418,24 +436,6 @@ components:
           type: string
         company_name:
           type: string
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        status:
-          type: integer
-          description: HTTP status code.
-    ListRecord:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        contacts_count:
-          type: integer
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
