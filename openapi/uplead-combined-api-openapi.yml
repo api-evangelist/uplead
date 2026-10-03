@@ -125,22 +125,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        status:
-          type: integer
-          description: HTTP status code.
-    CombinedPersonRecord:
-      allOf:
-      - $ref: '#/components/schemas/PersonRecord'
-      - type: object
-        properties:
-          company:
-            $ref: '#/components/schemas/CompanyRecord'
     CompanyRecord:
       type: object
       description: Company data record from UpLead's database.
@@ -324,6 +308,22 @@ components:
           type: string
         company_name:
           type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
+    CombinedPersonRecord:
+      allOf:
+      - $ref: '#/components/schemas/PersonRecord'
+      - type: object
+        properties:
+          company:
+            $ref: '#/components/schemas/CompanyRecord'
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -277,15 +277,6 @@ paths:
           description: Logo not found.
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        status:
-          type: integer
-          description: HTTP status code.
     CompanyRecord:
       type: object
       description: Company data record from UpLead's database.
@@ -386,6 +377,15 @@ components:
           type: string
         alexa_rank:
           type: integer
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
