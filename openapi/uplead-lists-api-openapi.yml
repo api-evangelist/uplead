@@ -316,6 +316,25 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    PaginationMeta:
+      type: object
+      properties:
+        total:
+          type: integer
+        page:
+          type: integer
+        next_page:
+          type:
+          - integer
+          - 'null'
+        previous_page:
+          type:
+          - integer
+          - 'null'
+        first_page:
+          type: boolean
+        last_page:
+          type: boolean
     ErrorResponse:
       type: object
       properties:
@@ -325,6 +344,15 @@ components:
         status:
           type: integer
           description: HTTP status code.
+    ListRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        contacts_count:
+          type: integer
     PersonRecord:
       type: object
       description: Person/contact data record from UpLead's database.
@@ -408,34 +436,6 @@ components:
           type: string
         company_name:
           type: string
-    ListRecord:
-      type: object
-      properties:
-        id:
-          type: string
-        name:
-          type: string
-        contacts_count:
-          type: integer
-    PaginationMeta:
-      type: object
-      properties:
-        total:
-          type: integer
-        page:
-          type: integer
-        next_page:
-          type:
-          - integer
-          - 'null'
-        previous_page:
-          type:
-          - integer
-          - 'null'
-        first_page:
-          type: boolean
-        last_page:
-          type: boolean
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -178,15 +178,6 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-        status:
-          type: integer
-          description: HTTP status code.
     PaginationMeta:
       type: object
       properties:
@@ -206,6 +197,15 @@ components:
           type: boolean
         last_page:
           type: boolean
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+        status:
+          type: integer
+          description: HTTP status code.
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
