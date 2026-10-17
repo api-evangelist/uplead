@@ -54,6 +54,13 @@ paths:
                 $ref: '#/components/schemas/ErrorResponse'
 components:
   schemas:
+    IndustryRecord:
+      type: object
+      properties:
+        id:
+          type: string
+        industry_name:
+          type: string
     ErrorResponse:
       type: object
       properties:
@@ -63,13 +70,6 @@ components:
         status:
           type: integer
           description: HTTP status code.
-    IndustryRecord:
-      type: object
-      properties:
-        id:
-          type: string
-        industry_name:
-          type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
